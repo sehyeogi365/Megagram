@@ -70,15 +70,31 @@
 		$("#duplicateBtn").on("click", function(){
 			let loginId = $("#loginIdInput").val();
 			
+			if(loginId == "") {
+				alert("아이디를 입력하세요.")
+				return ;
+			}
+			
+			
 			$.ajax({
-				type:"get"
-				, url:"/user/is_duplicate"
-				, data:{}
+				type:"post"
+				, url:"/user/duplicate"
+				, data:{"loginId":loginId}
 				, success:function(data){
+					
+					
+					if(data.is_duplicate){
+						alert("아이디가 중복됩니다.");
+						
+						isDuplicate = true;
+					} else {
+						alert("사용할수 있는 아이디입니다.");
+						isDuplicate = false;
+					}
 					
 				}
 				, error:function(){
-					
+					alert("추가 에러");
 				}
 				
 			});
