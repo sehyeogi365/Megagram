@@ -1,7 +1,9 @@
 package com.marondal.megagram.user.dao;
 
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface UserDAO {
 
 	
@@ -11,6 +13,9 @@ public interface UserDAO {
 		, @Param("name") String name
 		, @Param("email") String email
 		);
+
+	public int selectCountloginId(
+			@Param("loginId")String loginId);
 		
 	
 }

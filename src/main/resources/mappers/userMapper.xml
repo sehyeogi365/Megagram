@@ -5,8 +5,32 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
+  <mapper namespace="com.marondal.megagram.user.dao.UserDAO">
   
-  <insert>
-  
+  <insert id = "insertUser" parameterType="map">
+  	INSERT INTO `user`
+  			`loginId`
+  			, `password`
+  			, `name`
+  			, `email`
+  			, `createdAt`
+  			, `updatedAt`
+  	VALUES
+  		#{loginId}
+  		, #{password}
+  		, #{name}
+  		, #{email}
+  		, now()
+  		, now()
   
   </insert>
+  
+  <select id="selectCountloginId" resultType="int" parameterType="String">
+  	SELECT 
+  		count(1)
+  	FROM
+  		`user`
+  	WHERE `loginId` = #{loginId};
+  </select>
+  
+  </mapper>

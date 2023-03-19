@@ -4,14 +4,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.marondal.megagram.user.bo.UserBO;
 
-@Controller
+@RestController
 @RequestMapping("/user")
 public class UserRestController {
 	
@@ -40,6 +42,26 @@ public class UserRestController {
 			
 			
 		}
+	
+		@PostMapping("/duplicate")
+		@ResponseBody
+		public Map<String, Boolean> duplicateCheck(
+				@RequestParam("loginId") String loginId) {
+			
+			Map<String, Boolean> isDuplicate = new HashMap<>();
+			
+			if(userBO.isDuplicate(loginId)) {
+				isDuplicate.put("is_duplicate", true);
+			} else {
+				isDuplicate.put("is_duplicate", false);
+			}
+			
+			return isDuplicate;
+			
+			
+		
+		
+	}
 		
 	
 

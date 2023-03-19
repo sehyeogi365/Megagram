@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="UTF-8"%>
-    
+    pageEncoding="UTF-8"%>    
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
 <!DOCTYPE html>
 <html>
@@ -21,15 +20,75 @@
 	<div id="wrap" class="bg-gray">
 		<header class="bg-danger">
 		</header>
-		<section class="bg-primary">
+		<section class="bg-primary contents">
+			<div class="">
+				<h1 class="text-center">회원가입</h1>
+				<input type="text" id="loginIdInput" placeholder="로그인 ID" class="form-control mt-4">
+				<button type="button" class="btn btn-info btn-block" id="duplicateBtn">중복확인</button>
+				<input type="password" id="passwordInput" placeholder="비밀번호" class="form-control mt-4">
+				<input type="password" id="passwordConfirmInput" placeholder="비밀번호 확인" class="form-control mt-4">
+				<input type="text" id="nameInput" placeholder="이름" class="form-control mt-4">
+				<input type="text" id="emailInput" placeholder="이메일" class="form-control mt-4">
+				<button type="button" class="btn btn-info btn-block" id="joinBtn">가입</button>
+			</div>
 		
 		</section>
 		<footer class="bg-info">
+			<div class="">Copyright © megagram 2023</div>
 		
 		</footer>
 	</div>
 	
 	<script>
+	$(document).ready(function(){
+		$("#joinBtn").on("click", function(){ 
+			let loginId = $("#loginIdInput").val();
+			let password = $("#passwordInput").val();
+			let passwordConfirm = $("#passwordConfirmInput").val();
+			let name = $("#nameInput").val();
+			let email = $("#emailInput").val();
+			
+			$.ajax({
+				type:"post"
+				, url:"/user/signup"
+				, data:{"loginId" : loginId, "password" : password, "name" : name, "email" : email}
+				, success:function(data){
+					if(data.result == "success"){
+						location.href = "/user/signin/view";						
+					} else {
+						alert("회원가입 실패");
+					}
+				}
+				, error:function(){
+					alert("회원가입 에러");
+				}
+			});
+			
+			
+		});
+		
+		$("#duplicateBtn").on("click", function(){
+			let loginId = $("#loginIdInput").val();
+			
+			$.ajax({
+				type:"get"
+				, url:"/user/is_duplicate"
+				, data:{}
+				, success:function(data){
+					
+				}
+				, error:function(){
+					
+				}
+				
+			});
+			
+			
+		});
+		
+		
+	});
+		
 	
 	</script>
 
