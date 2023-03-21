@@ -13,55 +13,57 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.marondal.megagram.user.bo.UserBO;
 
-@RestController
+@RestController// 기본 컨트롤러 + responsebody 까지 추가된 형태의 controller 굳이 밑에 responsebody 안붙여도된다
 @RequestMapping("/user")
 public class UserRestController {
 	
 	@Autowired
-	private UserBO userBO;
+	private UserBO userBO;//비오메소드 호출하기위해서 autowired로 관리
 	
 	@PostMapping("/signup")
-		public Map<String, String>signup(
-				@RequestParam("loginId") String loginId
+		public Map<String, String>signup(// json 형태 보면 어떤 형태 데이터 만들지 그려짐 = result, success = 키(문자열) 밸류(문자열) 형태 = 맵 형태
+				@RequestParam("loginId") String loginId//로그인 아이디, 패스워드, 이름, 이메일
 				, @RequestParam("password") String password
 				, @RequestParam("name") String name
 				, @RequestParam("email") String email
-				) {
+				) {//여기서 암호화하는게 아님컨트롤러는 리퀘스트, 리스폰스 만 담당하는곳 그이상의 기능은 비오
 			
-			int count = userBO.addUser(loginId, password, name, email);
-			
+			int count = userBO.addUser(loginId, password, name, email);//비오메소드 호출함으로써 실제 데이터 저장.
+			//실행된 행 갯수
 					//회원가입및 중복 확인기능까지 진행해보기
 			Map<String, String>	resultMap = new HashMap<>();
 			
-			if (count == 1) {
-				resultMap.put("result", "success");
+			if (count == 1) {// 성공/실패 여부
+				resultMap.put("result", "success");//항상 키 밸류 형태
 			} else {
 				resultMap.put("result", "fail");
 			}
-			return resultMap;
+			return resultMap;//실제 맵객체는 잭슨 라이브러리를통해서 제이슨 문자열이 만들어지고 그 문자열이 리스폰스에 담긴다.			
 			
-			
-		}
+		}//기존의 코드랑 비교해가며 뭐가 틀렸는지 하면 아무 도움이 안된다. 여러분들은 과정배우러 온거지
 	
-		@PostMapping("/duplicate")
+		@GetMapping("/duplicate_id") //api니 레스트 컨트롤러 겟매핑이면 충분
 		@ResponseBody
-		public Map<String, Boolean> duplicateCheck(
-				@RequestParam("loginId") String loginId) {
+		public Map<String, Boolean> duplicateCheck(//제이슨과 유사한 자바객체로 구성-> 키밸류형태니 맵
+				@RequestParam("loginId") String loginId) {//아이디 전달
+//			boolean isDuplicate = userBO.isDuplicate(loginId);
 			
-			Map<String, Boolean> isDuplicate = new HashMap<>();
+			Map<String, Boolean> resultMap = new HashMap<>();
 			
-			if(userBO.isDuplicate(loginId)) {
-				isDuplicate.put("is_duplicate", true);
-			} else {
-				isDuplicate.put("is_duplicate", false);
-			}
+//			if(isDuplicate) {//중복여부에 따라 트루 폴스 boolean변수는 등호통해서 트루폴스 비교하지않는다. 이값자체가 트루 폴스 이변수 자체가 트루
+//				resultMap.put("is_duplicate", true);
+//			} else {
+//				resultMap.put("is_duplicate", false);
+//			}
+
+			resultMap.put("is_duplicate", userBO.isDuplicate(loginId));//요값의 트루 폴스값 자체가 요값에 들어갈 밸류와 결국 일치하기 때문
+			// 이렇게도 표현 가능 요갑자체가 이 밸류랑 일치
+			// 코드는 줄여볼려고 노력하는게 좋음 코드의 이해도 높일수 있다. 하지만 무조건 줄이면 안좋음
 			
-			return isDuplicate;
-			
+			return resultMap;// 이 api는 로그인아이디 중복여부를 확인해서 제이손 형태로 이스 듀플리케이트라는 키로 중복여부결과를 트루폴스형태값으로 전달한다 뭘로 제인슨 문자열로 뭘통해서? 리스폰스를 통해서 
 			
 		
-		
-	}
+		}
 		
 	
 
