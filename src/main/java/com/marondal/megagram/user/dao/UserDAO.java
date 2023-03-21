@@ -1,7 +1,10 @@
 package com.marondal.megagram.user.dao;
 
+
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
+
+import com.marondal.megagram.user.model.User;
 
 @Repository
 public interface UserDAO {
@@ -14,8 +17,12 @@ public interface UserDAO {
 		, @Param("email") String email
 		);//다오메소드 수행하면 지정한 쿼리 수행됨
 
+	
 	public int selectCountloginId(//일치하는게 몇개가 조회되는지 
 			@Param("loginId")String loginId);
-		
 	
+	public User selectUser(//일치하는게 몇개가 조회되는지  // 사용자아이디 ,비번 한행의 정보만 저장 가능한 객체가 리턴타입
+			@Param("loginId")String loginId
+			, @Param("password")String ecyptPassword);
+
 }

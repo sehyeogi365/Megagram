@@ -8,23 +8,27 @@
   <mapper namespace="com.marondal.megagram.user.dao.UserDAO"><!-- 패키지명을 포함한 정확한 인터페이스명 붙여주기 -->
   
   <insert id = "insertUser" parameterType="map"><!-- insert 는 result type int로 정해져있으므로 따로 지정 안함 -->
-  	INSERT INTO `user`
+  	INSERT INTO 
+  		`user`
+  		(
   			`loginId`
   			, `password`
   			, `name`
   			, `email`
   			, `createdAt`
   			, `updatedAt`
-  	VALUES
+  		)
+  	VALUE
+  		(
   		#{loginId}
   		, #{password}
   		, #{name}
   		, #{email}
   		, now()
   		, now()
-  
+  		)
   </insert>
-  									<!-- 정확하게 리턴타입 -->
+  														<!-- 정확하게 리턴타입 -->
   <select id="selectCountloginId" resultType="int" parameterType="string"><!-- 파라미터는 로그인할 아이디 String -->
   	SELECT 
   		count(1)
@@ -33,5 +37,24 @@
   	WHERE 
   		`loginId` = #{loginId};
   </select>
+  
+  <select id="selectUser"  parameterType="map" resultType="com.marondal.megagram.user.model.User">
+  	SELECT 
+  			`id`	
+  			, `loginId`
+  			, `password`
+  			, `name`
+  			, `email`
+  			, `createdAt`
+  			, `updatedAt`
+  	FROM
+  		`user`
+  	WHERE 
+  		`loginId` = #{loginId}
+  		AND
+  		`password` = #{password}
+  </select>
+  
+  
   
   </mapper>

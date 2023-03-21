@@ -2,11 +2,13 @@ package com.marondal.megagram.user.bo;
 
 import javax.crypto.EncryptedPrivateKeyInfo;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.marondal.megagram.common.EncryptService;
 import com.marondal.megagram.user.dao.UserDAO;
+import com.marondal.megagram.user.model.User;
 
 @Service
 public class UserBO {
@@ -43,4 +45,12 @@ public class UserBO {
 		
 
 	}
+
+	public User getUser(String loginId, String password) {//암호화 된 비밀번호 전달 비오에서 해당하는 패스워드를 정해진 규격에따라 암호화
+		
+		String ecryptPassword = EncryptService.md5(password);//패스워드를 인자로 전달하면 암호화 된결과가 리턴
+		
+		return userDAO.selectUser(loginId, ecryptPassword);
+	}
+	
 }

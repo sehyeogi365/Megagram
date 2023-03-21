@@ -18,8 +18,8 @@
 </head>
 <body>
 	<div id="wrap" class="bg-gray">
-		<header class="bg-danger">
-		</header>
+	
+		<c:import url="/WEB-INF/jsp/include/header.jsp"/>
 		<section class="bg-primary contents">
 			<div class="">
 				<h1 class="text-center">회원가입</h1>
@@ -40,10 +40,8 @@
 			</div>
 		
 		</section>
-		<footer class="bg-info">
-			<div class="">Copyright © megagram 2023</div>
-		
-		</footer>
+
+		<c:import url="/WEB-INF/jsp/include/footer.jsp"/>
 	</div>
 	
 	<script>

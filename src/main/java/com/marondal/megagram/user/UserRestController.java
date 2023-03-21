@@ -3,7 +3,11 @@ package com.marondal.megagram.user;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.marondal.megagram.user.bo.UserBO;
+import com.marondal.megagram.user.model.User;
 
 @RestController// 기본 컨트롤러 + responsebody 까지 추가된 형태의 controller 굳이 밑에 responsebody 안붙여도된다
 @RequestMapping("/user")
@@ -65,6 +70,34 @@ public class UserRestController {
 		
 		}
 		
+		@PostMapping("/signin")
+		public Map<String, String> signin(
+				 @RequestParam("loginId") String loginId //두값이 일치 하는지 확인
+				,@RequestParam("password") String password
+				, HttpServletRequest request//HttpServlet 세션 객체 구해오기(?)
+				) {
+			//일치하는 사용자 정보 가져오기
+			User user = userBO.getUser(loginId, password);
+			
+			
+			Map<String, String> resultMap = new HashMap<>();
+			
+			
+			if(user != null) {//조회된 경우가 있다 없다로 나뉨
+				resultMap.put("result", "success");//널이아니면 일치 성공했으니 success
+				
+				HttpSession session = request.getSession();
+				
+				session.setAttribute("userId", user.getId());//user테이블의 id 세션이라는 공간에 유저아이디라는 키로 해당하는 아이디값을 저장시킴
+				session.setAttribute("userName", user.getName());// 이것도 키 밸류 형태  게터를 통해 저장
+				
+			} else {
+				resultMap.put("result", "fail");
+			}
+					
+			return resultMap;//restcontroller라서 자동포함이므로 굳이 리스폰스바디 안넣어도 됨
 	
+		}
+		
 
 }
