@@ -13,14 +13,14 @@
 	<link rel="stylesheet" href="/static/css/style.css" type="text/css">
 </head>
 <body>
-<div id="wrap" class="bg-gray">
+<div id="wrap" class="container">
 		
 		<c:import url="/WEB-INF/jsp/include/header.jsp"/>
-		<section class="bg-primary contents">
+		<section class="contents">
 			<div class="login-box my-5">
 				<h1 class="text-center">로그인</h1>
 				
-				
+				<form id="loginForm">
 				<div class="d-flex mt-3">
 					<input type="text" id="loginIdInput" placeholder="로그인 ID" class="form-control mt-4">
 					
@@ -30,8 +30,8 @@
 				<input type="password" id="passwordInput" placeholder="비밀번호" class="form-control mt-4">
 				
 				
-				<button type="submit" class="btn btn-info btn-block" id="loginBtn">로그인</button>
-				
+				<button type="submit" class="btn btn-info btn-block mt-3" id="loginBtn">로그인</button>
+				</form>
 				
 			</div>
 		

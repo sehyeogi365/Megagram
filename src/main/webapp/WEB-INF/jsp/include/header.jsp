@@ -7,8 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<header class="d-flex align-items-center bg-danger">
-		<h1>megagram</h1>
+	<header class="d-flex align-items-center justify-content-between">
+		<h1 class="ml-3">megagram</h1>
 		
 		<c:if test = "${not empty userName}">
 		<div class="mr-3">   						<!-- 자바코드였다면 세션 객체를 통해서 getAttribute 메소드를 통해서 값을 얻어옴-->

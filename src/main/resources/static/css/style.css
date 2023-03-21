@@ -3,20 +3,27 @@
 
 #wrap{
 	width:1200px;
-	height:800px;
-	
+
+	margin:auto;
 }
 
 header{
-	
+	height:70px;
+	background-color:#dddddd;
 	
 }
 
 .contents{
-	
+	height:500px;
 	
 }
 
+.contents > .login-box{
+	width:350px;
+
+}
+
 footer{
-	
+	height:60px;
+	background-color:#dddddd;
 }

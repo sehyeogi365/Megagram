@@ -7,8 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<footer class="bg-info">
-			<div class="">Copyright © megagram 2023</div>
+	<footer class="">
+			<div class="text-center pt-3">Copyright © megagram 2023</div>
 		
 		</footer>
 

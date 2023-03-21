@@ -17,10 +17,10 @@
 
 </head>
 <body>
-	<div id="wrap" class="bg-gray">
+	<div id="wrap">
 	
 		<c:import url="/WEB-INF/jsp/include/header.jsp"/>
-		<section class="bg-primary contents">
+		<section class="contents">
 			<div class="">
 				<h1 class="text-center">회원가입</h1>
 				<div class="d-flex mt-3">
