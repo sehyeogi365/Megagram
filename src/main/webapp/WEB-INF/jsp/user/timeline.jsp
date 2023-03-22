@@ -14,9 +14,29 @@
 <body>
 	<div id="wrap" class="container">
 		<c:import url="/WEB-INF/jsp/include/header.jsp"/>
-		<section class=" contents">
-			<div class="">
+		<section class="contents">
+		
+		
+			<div class="timeline-box d-flex align-items-center">
 				<h1 class="text-center">타임라인</h1>
+				
+				
+				<div class="d-flex justify-content-between align-items-center">
+					<img src="./img/slide1.jpg">
+					
+					<button type ="submit" class="btn btn-secondary mt-3">팔로우</button>
+					
+				</div>
+				<div class="image-box">
+					<ul id="imgholder" class="imgs">
+				        <li><img src="./img/slide1.jpg"></li>
+				        <li><img src="./img/slide2.jpg"></li>
+				        <li><img src="./img/slide3.jpg"></li>
+				        <li><img src="./img/slide4.jpg"></li>
+				    </ul>
+				</div>
+				<div class=""></div>
+				
 				
 			</div>
 		</section>
