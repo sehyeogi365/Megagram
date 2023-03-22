@@ -21,7 +21,7 @@
 	
 		<c:import url="/WEB-INF/jsp/include/header.jsp"/>
 		<section class="contents">
-			<div class="">
+			<div class="join-box my-5">
 				<h1 class="text-center">회원가입</h1>
 				<div class="d-flex mt-3">
 					<input type="text" id="loginIdInput" placeholder="로그인 ID" class="form-control mt-4">
