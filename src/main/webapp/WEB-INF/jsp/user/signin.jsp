@@ -18,7 +18,7 @@
 <div id="wrap" class="container">
 		
 		<c:import url="/WEB-INF/jsp/include/header.jsp"/>
-		<section class="contents">
+		<section class="contents d-flex justify-content-center">
 			<div class="login-box my-5">
 				<h1 class="text-center">로그인</h1>
 				

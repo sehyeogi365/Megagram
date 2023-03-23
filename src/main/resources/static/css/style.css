@@ -14,7 +14,7 @@ header{
 }
 
 .contents{
-	height:500px;
+	
 	
 }
 
@@ -27,9 +27,22 @@ header{
 
 }
 .contents > .timeline-box{
-	width:350px;
+	width:450px;
 
 }
+
+.contents > .timeline-box>.timeline{
+	height:60px;
+	background-color: #dddddd;
+	
+}
+
+.contents > .timeline-box>.comment{
+	height:30px;
+	background-color: #dddddd;
+	
+}
+
 
 footer{
 	height:60px;

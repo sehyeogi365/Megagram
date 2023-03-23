@@ -20,7 +20,7 @@
 	<div id="wrap">
 	
 		<c:import url="/WEB-INF/jsp/include/header.jsp"/>
-		<section class="contents">
+		<section class="contents d-flex justify-content-center">
 			<div class="join-box my-5">
 				<h1 class="text-center">회원가입</h1>
 				<div class="d-flex mt-3">

@@ -74,7 +74,7 @@ public class UserRestController {
 		public Map<String, String> signin(
 				 @RequestParam("loginId") String loginId //두값이 일치 하는지 확인
 				,@RequestParam("password") String password
-				, HttpServletRequest request//HttpServlet 세션 객체 구해오기(?)
+				, HttpSession session//HttpServlet 세션 객체 구해오기(?)
 				) {
 			//일치하는 사용자 정보 가져오기
 			User user = userBO.getUser(loginId, password);
@@ -86,9 +86,8 @@ public class UserRestController {
 			if(user != null) {//조회된 경우가 있다 없다로 나뉨
 				resultMap.put("result", "success");//널이아니면 일치 성공했으니 success
 				
-				HttpSession session = request.getSession();
-				
-				session.setAttribute("userId", user.getId());//user테이블의 id 세션이라는 공간에 유저아이디라는 키로 해당하는 아이디값을 저장시킴
+				session.setAttribute("userId", user.getId());//user테이블의 id 세션이라는 공간에 유저아이디라는 키로 해당하는 아이디값을 저장시킴				
+				session.setAttribute("loginId", user.getLoginId());// 이것도 키 밸류 형태  게터를 통해 저장
 				session.setAttribute("userName", user.getName());// 이것도 키 밸류 형태  게터를 통해 저장
 				
 			} else {

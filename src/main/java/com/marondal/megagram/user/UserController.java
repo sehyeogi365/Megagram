@@ -29,6 +29,7 @@ public class UserController {
 	public String signout(HttpSession session) {
 		
 		session.removeAttribute("userId");
+		session.removeAttribute("loginId");
 		session.removeAttribute("userName");//특정페이지로 이동시킬거다.
 		
 		return "redirect:/user/signin/view";//이동할페이지 url
