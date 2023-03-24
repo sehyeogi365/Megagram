@@ -52,5 +52,12 @@ public class UserBO {
 		
 		return userDAO.selectUser(loginId, ecryptPassword);
 	}
+
+	public User getUserById(int userId) {
+		// TODO Auto-generated method stub
+		return userDAO.selectUserById(userId);
+	}
+
+
 	
 }

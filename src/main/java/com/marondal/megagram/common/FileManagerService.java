@@ -8,15 +8,15 @@ import java.nio.file.Paths;
 
 import org.springframework.web.multipart.MultipartFile;
 
-public class FileManagerService {
+public class FileManagerService {//파일저장 서비스 
 
 	
 	public static final String FILE_UPLOAD_PATH = "D:\\임세혁\\spring\\springProject\\upload\\megagram\\image"; //이렇게 되면 상수가 된다.
-	//member변수 웬만하면 public안쓴다.				//경로 잘 지정하고 슬래쉬 잘구분하기
+	//member변수 웬만하면 public안쓴다.				//경로 잘 지정하고 슬래쉬 잘구분하기(메가그램거이므로 경로 수정)
 // 파일 저장 -> 경로 생성
 // 객체 생성없이 쓸수 있는 메소드 -> static 객체생성없이 쓸수 있도록 구성
 public static String saveFile(int userId, MultipartFile file) {//접근하기 위한 경로 리턴
-	
+				//리턴값: 경로가 되야하므로 스트링 사용자정보 이므로 userId 그리고 메모거 그대로 복사하는건 잘함 ㅇㅇ.
 	
 	if(file == null) {//file이 널이라면?
 		

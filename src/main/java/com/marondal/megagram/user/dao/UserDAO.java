@@ -24,5 +24,11 @@ public interface UserDAO {
 	public User selectUser(//일치하는게 몇개가 조회되는지  // 사용자아이디 ,비번 한행의 정보만 저장 가능한 객체가 리턴타입
 			@Param("loginId")String loginId
 			, @Param("password")String ecyptPassword);
+	
+	public User selectUserById(
+			
+			@Param("id") int id// Parameter 'id' not found. id로 파라미터 변경
+			);
+	
 
 }

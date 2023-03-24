@@ -7,7 +7,7 @@
    <mapper namespace="com.marondal.megagram.post.dao.PostDAO">
    
    
-   <insert id ="insertPost" parameterType="map">
+   <insert id ="insertPost" parameterType="map"><!-- 파라미터 리턴 타입 여러개면 맵 -->
    		INSERT INTO
    			`post`
    			(
@@ -41,8 +41,39 @@
 				, `updatedAt`
   		FROM
   				`post`
-  		
+  		ORDER BY
+  			`id` DESC;<!-- 최신순서대로 -->
   	 </select>
+  	 
+  	 
+  	 <insert id ="insertLike" parameterType="int">
+  	 	INSERT INTO
+  	 		`like`
+  	 		(
+  	 			`userId`
+   				,`postId`
+   				, `createdAt`
+  	 		)
+  	 	VALUE
+  	 		(
+  	 			#{userId}
+  	 			, #{postId}
+  	 			, now()
+  	 		)
+  	 </insert>
+  	 <!-- 좋아요 숫자 출력 -->
+  	 
+  	 <select id="selectLike" parameterType = "int">
+  	 	SELECT
+  	 		count(1)
+  	 	FROM
+  	 		`like`
+  	 		
+  	 		
+  	 
+  	 </select>
+  	 
+  	 
   	 
   	 <insert id="insertComment" parameterType="map">
   	 	INSERT INTO
@@ -81,6 +112,7 @@
   	 
   	 </select>
   	
+  
   	 
   	 
   
