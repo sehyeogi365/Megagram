@@ -44,6 +44,45 @@
   		
   	 </select>
   	 
+  	 <insert id="insertComment" parameterType="map">
+  	 	INSERT INTO
+   			`post`
+   			(
+   				`userId`
+   				,`content`
+   				, `createdAt`
+  				, `updatedAt`
+   			)
+   		VALUE
+   		(
+   			#{userId}
+   			, #{content}
+   			, now()
+   			, now()
+   		
+   		)
+  	 
+  	 </insert>
+  	 
+  	 <select id="selectCommentList" parameterType="int"
+  	 resultType="com.marondal.megagram.post.model.Comment">
+  	 	SELECT
+  				`id`
+				, `userId`
+				, `postId`
+				, `content`
+				, `createdAt`
+				, `updatedAt`
+  		FROM
+  				`comment`
+  	 	WHERE 
+  	 		`userId` = #{userId}
+  	 		AND
+  	 		`postId` = #{postId}
+  	 	ORDER BY
+  	 		`id`DESC
+  	 
+  	 </select>
   	
   	 
   	 

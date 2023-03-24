@@ -34,6 +34,10 @@ public class PostController {
 		model.addAttribute("postList", postList);
 	
 		
+		
+				
+				
+		
 		return "post/timeline";
 		
 	}

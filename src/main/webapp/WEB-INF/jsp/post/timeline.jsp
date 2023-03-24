@@ -53,7 +53,7 @@
 					<div class="card">
 						<!-- https://icons.getbootstrap.com/ -->
 							<div class="d-flex justify-content-between p-2"><!-- 여백까지 -->
-								<div>${loginId}</div>
+								<div>${user.loginId}</div>
 								<div><i class="bi bi-three-dots"></i></div><!-- i태그만 넣으면 안됨 -->
 							
 							
@@ -116,7 +116,7 @@
 								<div class="px-2"><b>bada</b>저도 가보고 싶어요</div>
 								
 								<div class="d-flex">
-									<input type="text" class="form-control">
+									<input type="text" class="form-control" id = "commentInput">
 									<button type="button" id="commentBtn" class="btn btn-info btn-sm" >게시</button>
 								</div>
 								
@@ -157,12 +157,17 @@
 			
 			$.ajax({
 				type:"post"
-				, url : ""
-				, data :
-				, enctype :
-				, processData:
+				, url : "/post/create"
+				, data : formData
+				, enctype :"multipart/form-data"
+				, processData:false
+				, contentType:false
 				, success:function(data){
-					
+					if(data.result == "success") {
+						location.href="/post/timeline/view";
+					} else{
+						alert("글쓰기 실패");
+					}
 					
 					
 				}
@@ -189,6 +194,31 @@
 				alert("댓글을 입력하세요");
 				return;
 			}
+			
+			$.ajax({
+				type:"post"
+					, url:"/post/comment"
+					, data:formData //여기다가 그대로 넣어주기
+					, data:{"userId" : userId, "postId": postId, "content" : content}
+					, success:function(data){
+						
+						if(data.result =="success"){
+							location.href="/post/timeline/view";
+							alert("댓글 성공");
+						} else {
+							alert("댓글 오류");
+						}
+					}
+					, error:function(){
+						alert("댓글 에러");
+					}
+				
+			});
+			
+			
+			
+			
+			
 		});
 		
 		
