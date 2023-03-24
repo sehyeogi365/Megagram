@@ -48,12 +48,14 @@
 				
 				
 				<!-- 게시글 카드 리스트 -->
+				<!-- c태그 반복문 활용 -->
+				<c:forEach var="post" items="${postList }"> 
 				<div class="card-list mt-4">
 					<!-- 게시글 카드 -->
 					<div class="card">
 						<!-- https://icons.getbootstrap.com/ -->
 							<div class="d-flex justify-content-between p-2"><!-- 여백까지 -->
-								<div>${user.loginId}</div>
+								<div>${post.userId}</div>
 								<div><i class="bi bi-three-dots"></i></div><!-- i태그만 넣으면 안됨 -->
 							
 							
@@ -73,10 +75,10 @@
 							<!-- 댓글 박스 -->
 							<div class="p-2">
 								<div>댓글</div>
-								
-								<div><b>hagulu</b>진짜 예쁘네요</div>
-								<div><b>bada</b>저도 가보고 싶어요</div>
-								
+								<c:forEach var="comment" items="${commentList }">
+									<div><b>hagulu</b>진짜 예쁘네요</div>
+									<div><b>bada</b>저도 가보고 싶어요</div>
+								</c:forEach>
 								<div class="d-flex">
 									<input type="text" class="form-control">
 									<button type="button" id="commentBtn"class="btn btn-info btn-sm">게시</button>
@@ -85,6 +87,8 @@
 							</div>
 							
 					</div>
+					
+					</c:forEach>
 					<!-- /게시글 카드 -->
 					
 					<!-- 게시글 카드 -->
@@ -199,7 +203,7 @@
 				type:"post"
 					, url:"/post/comment"
 					, data:formData //여기다가 그대로 넣어주기
-					, data:{"userId" : userId, "postId": postId, "content" : content}
+					, data:{"userId" : userId, "content" : content}
 					, success:function(data){
 						
 						if(data.result =="success"){

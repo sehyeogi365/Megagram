@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.marondal.megagram.common.FileManagerService;
 import com.marondal.megagram.post.dao.PostDAO;
+import com.marondal.megagram.post.model.Comment;
 import com.marondal.megagram.post.model.Post;
 
 @Service
@@ -35,15 +36,15 @@ public class PostBO {
 	}
 	
 	//댓글달기
-	public int addComment(int userId, int postId, String content) {
+	public int addComment(int userId, String content) {
 		
-		return postDAO.insertComment(userId, postId, content);
+		return postDAO.insertComment(userId, content);
 	}
 		
 
 	//댓글보기	
-	public List<Post> getCommentList(int userId, int postId, String content){
-		return null;
+	public List<Post> getCommentList(int userId){
+		return postDAO.selectCommentList(userId);
 		
 	}
 		

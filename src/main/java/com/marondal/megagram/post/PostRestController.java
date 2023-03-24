@@ -49,13 +49,12 @@ public class PostRestController {
 	@PostMapping("/comment")
 	public Map<String, String> commentCreate(
 			 @RequestParam("userId") int userId
-			 , @RequestParam("postId") int postId
 			 , @RequestParam("content") String content
 			, HttpSession session
 			) {
 		
 		
-		int count = postBO.addComment(userId, postId, content);
+		int count = postBO.addComment(userId, content);
 		
 		Map<String, String> resultMap = new HashMap<>();
 		

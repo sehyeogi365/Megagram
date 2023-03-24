@@ -32,11 +32,11 @@ public class PostController {
 		
 		List<Post> postList = postBO.getPostList(userId);
 		model.addAttribute("postList", postList);
+		
+		List<Post> commentList = postBO.getCommentList(userId);
+		model.addAttribute("commentList", commentList);
 	
 		
-		
-				
-				
 		
 		return "post/timeline";
 		
