@@ -38,7 +38,7 @@
 					<div class="d-flex justify-content-between mx-2 mb-2">
 						<!--버튼 왼쪽 오른쪽 배치 justify-content-between -->
 						<i id="imageIcon" class="bi bi-card-image image-icon-size"></i><!-- 그림클릭해서 업로드 글씨처럼 크기 키우기 css로-->
-						<input type="file" name="file" id="fileInput" class="d-none"><br><!-- 글씨안보이게 숨기기 -->
+						<input type="file" id="fileInput" class="d-none"><br><!-- 글씨안보이게 숨기기 -->
 						<a href="" class="btn btn-primary btn-sm" id="uploadBtn">업로드</a>
 					
 					</div>
@@ -66,24 +66,31 @@
 							</div>
 							<!-- 하트아이콘 -->
 							<div class="p-2"> 
-								<i id="likeIcon" class="bi bi-heart" ></i> 좋아요 11개
+								<i id="likeIcon" class="like-btn bi bi-heart" data-post-id="${post.id }" ></i> 좋아요 11개
 							</div>
-							<input type="file"  id="likeInput" class="d-none"><br>
 							
-							<div class="p-2"><!-- 설명및 아이디 -->
-								<b>dulumary</b> ${post.content } <!-- 글내용 -->
+							
+							<div class="p-2">
+								<b>${post.loginId }</b> ${post.content } 
 							</div>
+							
+							<!-- 댓글 목록 -->
+							<c:forEach var="comment" items="${commentList }">
+									<div class="p-2">
+									
+									
+										<b>${comment.loginId }</b>${comment.content }<!-- 댓글내용 -->
+									</div>
+								
+							</c:forEach>
 							
 							<!-- 댓글 박스 -->
 							<div class="p-2">
-								<div>댓글</div>
-								<c:forEach var="comment" items="${commentList }">
-									<div><b>${comment.userId }</b>${post.content }</div>
-									<div><b>${comment.userId }</b>${post.content }</div>
-								</c:forEach>
+								<div>댓글</div><!-- 설명및 아이디 -->
+								
 								<div class="d-flex mt-2">
 									<input type="text" class="form-control">
-									<button type="button" id="commentBtn"class="btn btn-info btn-sm">게시</button>
+									<button type="button" id="commentBtn"class="btn btn-info btn-sm comment-btn" data-comment-id="${comment.id }">게시</button>
 								</div>
 								
 							</div>
@@ -111,11 +118,53 @@
 	<script>
 	$(document).ready(function(){
 		
+		var ths = $(ths);
+		
+		ths.parents("");
+		
+		var id = "id";
+		
+		//댓글
+		$(".comment-btn").on("click", function(){//id기반이아닌 클래스기반으로 할것. 왜냐면 버튼이여러개라서 사실상 댓글이 제일 어렵다고 함 좋아요부터 생각해보기.
+			
+			let id = $(this).data("comment-id")
+			
+			let comment = $("#commentInput").val();
+			
+			
+			if(comment == "") {
+				alert("댓글을 입력하세요");
+				return;
+			}
+			
+			$.ajax({
+				type:"post"
+					, url:"/post/comment"
+					, data:{"userId" : id, "content" : comment}
+					, success:function(data){
+						
+						if(data.result == "success"){
+							location.reload();
+							alert("댓글 성공");
+						} else {
+							alert("댓글 오류");
+						}
+					}
+					, error:function(){
+						alert("댓글 에러");
+					}
+				
+			});
+
+		});
+		
 		//좋아요
-		$("#likeIcon").on("click", function(){
+		$(".like-btn").on("click", function(){
+			
+			let id = $(this).data("post-id");
 			
 			$("#likeInput").click();
-			
+			alert("좋아요 누름");
 			
 			$.ajax({//api호출 api문서보면서하기
 				type:"post"
@@ -201,40 +250,7 @@
 		
 		
 		
-		$("#commentBtn").on("click", function(){//id기반이아닌 클래스기반으로 할것. 왜냐면 버튼이여러개라서 사실상 댓글이 제일 어렵다고 함 좋아요부터 생각해보기.
-			
-			let comment = $("#commentInput").val();
-			
-			
-			if(comment.trim() == "") {
-				alert("댓글을 입력하세요");
-				return;
-			}
-			
-			$.ajax({
-				type:"post"
-					, url:"/post/comment"
-					, data:{"userId" : userId, "content" : content}
-					, success:function(data){
-						
-						if(data.result == "success"){
-							location.reload();
-							alert("댓글 성공");
-						} else {
-							alert("댓글 오류");
-						}
-					}
-					, error:function(){
-						alert("댓글 에러");
-					}
-				
-			});
-			
-			
-			
-			
-			
-		});
+		
 		
 		
 	});

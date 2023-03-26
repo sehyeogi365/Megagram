@@ -47,7 +47,7 @@ public class PostRestController {
 		
 	
 	}
-	
+	//좋아요
 	@GetMapping("/like")
 	public Map<String, String> likeCreate(
 			@RequestParam("userId") int userId
@@ -71,7 +71,7 @@ public class PostRestController {
 		
 	}
 	
-	
+	//댓글 달기
 	@PostMapping("/comment")
 	public Map<String, String> commentCreate(
 			 @RequestParam("userId") int userId

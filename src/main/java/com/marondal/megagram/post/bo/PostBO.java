@@ -93,10 +93,12 @@ public class PostBO {
 		
 
 	//댓글보기	
-	public List<Post> getCommentList(int userId){
-		return postDAO.selectCommentList(userId);
+	public List<Comment> getCommentList(){
+		return postDAO.selectCommentList();
 		
 	}
+
+
 		
 }
 

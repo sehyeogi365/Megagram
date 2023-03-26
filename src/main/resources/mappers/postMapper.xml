@@ -63,7 +63,7 @@
   	 </insert>
   	 <!-- 좋아요 숫자 출력 -->
   	 
-  	 <select id="selectLike" parameterType = "int">
+  	 <select id="selectLike" parameterType = "int" resultType="com.marondal.megagram.post.model.Like">
   	 	SELECT
   	 		count(1)
   	 	FROM

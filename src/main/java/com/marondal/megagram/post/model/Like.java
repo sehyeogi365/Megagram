@@ -2,7 +2,7 @@ package com.marondal.megagram.post.model;
 
 import java.util.Date;
 
-public class like {
+public class Like {
 	private int id;
 	private int userId;
 	private int postId;

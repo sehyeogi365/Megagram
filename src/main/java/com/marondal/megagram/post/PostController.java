@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.marondal.megagram.post.bo.PostBO;
+import com.marondal.megagram.post.model.Comment;
 import com.marondal.megagram.post.model.Post;
 import com.marondal.megagram.post.model.PostDetail;
 import com.marondal.megagram.user.bo.UserBO;
@@ -41,8 +42,8 @@ public class PostController {
 		List<PostDetail> postList = postBO.getPostList();//이 조회된 데이터를 쓰려고		
 		model.addAttribute("postList", postList);//컨트롤러 어디서든
 		
-//		List<Post> commentList = postBO.getCommentList();
-//		model.addAttribute("commentList", commentList);
+		List<Comment> commentList = postBO.getCommentList();
+		model.addAttribute("commentList", commentList);
 	
 		
 		

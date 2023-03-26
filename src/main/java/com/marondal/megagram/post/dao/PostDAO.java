@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import com.marondal.megagram.post.model.Comment;
 import com.marondal.megagram.post.model.Post;
 import com.marondal.megagram.post.model.PostDetail;
 
@@ -28,8 +29,9 @@ public interface PostDAO {
 			@Param("userId") int userId
 			, @Param("content") String content	
 			);
-	
-	public List<Post> selectCommentList(@Param("userId") int userId);
+
+
+	public List<Comment> selectCommentList();
 
 
 	
