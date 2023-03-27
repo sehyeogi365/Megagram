@@ -68,8 +68,31 @@ public class PostRestController {
 		
 		return resultMap;
 		
+	}
+	
+	//좋아요 취소기능
+	
+	@GetMapping("/like_delete")
+	
+	public Map<String, String> deleteLike(
+			@RequestParam("userId") int userId){
+		
+		Map<String, String> resultMap = new HashMap<>(); 
+		
+		int count = postBO.deleteLike(userId);
+		
+		if(count == 1) {
+			resultMap.put("result", "success");
+		} else {
+			resultMap.put("result", "fail");
+		}
+		
+		return resultMap;
+		
 		
 	}
+	
+	
 	
 	//댓글 달기
 	@PostMapping("/comment")

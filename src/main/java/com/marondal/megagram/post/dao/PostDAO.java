@@ -22,6 +22,8 @@ public interface PostDAO {
 
 	public int insertLike(@Param("userId") int userId);
 	
+	public int deleteLike(@Param("userId") int userId);
+	
 	public int selectLike(@Param("userId") int userId);
 	
 	

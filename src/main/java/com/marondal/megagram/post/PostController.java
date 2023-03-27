@@ -42,9 +42,12 @@ public class PostController {
 		List<PostDetail> postList = postBO.getPostList();//이 조회된 데이터를 쓰려고		
 		model.addAttribute("postList", postList);//컨트롤러 어디서든
 		
+		
+		
 		List<Comment> commentList = postBO.getCommentList();
 		model.addAttribute("commentList", commentList);
 	
+		
 		
 		
 		return "post/timeline";

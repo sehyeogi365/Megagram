@@ -72,7 +72,12 @@ public class PostBO {
 	public int addLike(int userId) {
 		
 		return postDAO.insertLike(userId);
+
+	}
+	
+	public int deleteLike(int userId) {
 		
+		return userId;		
 		
 	}
 	

@@ -66,7 +66,11 @@
 							</div>
 							<!-- 하트아이콘 -->
 							<div class="p-2"> 
-								<i id="likeIcon" class="like-btn bi bi-heart" data-post-id="${post.id }" ></i> 좋아요 11개
+								<i id="likeIcon" class="like-btn bi bi-heart" data-post-id="${post.id }" >좋아요 11개</i> 
+							</div>
+							<!-- 한번 누르면 검정하트 리무브 두번 누르면 하얀하트  -->
+							<div class="p-2"> 
+								<i id="fulllikeIcon" class="d-none like-btn bi bi-heart-fill" data-post-id="${post.id }" >좋아요 11개</i> 
 							</div>
 							
 							
@@ -163,8 +167,23 @@
 			
 			let id = $(this).data("post-id");
 			
+		
+			
 			$("#likeInput").click();
 			alert("좋아요 누름");
+			
+			
+			if(id == likeIcon){//빈하트를 눌렀을때
+				alert("좋아요 누름");//좋아요 누름
+				$("#fulllikeIcon").removeClass("d-none");//검정하트 add
+														  //하얀하트 remove
+			} else { // 꽉찬 하트를 눌렀을때
+				alert("좋아요 취소");// 좋아요 취소
+				
+				$("#likeIcon").removeClass("d-none"); // 검정하트remove
+				 										// 하얀하트add
+			}
+			
 			
 			$.ajax({//api호출 api문서보면서하기
 				type:"post"

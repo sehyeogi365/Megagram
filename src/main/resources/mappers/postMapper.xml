@@ -61,6 +61,17 @@
   	 			, now()
   	 		)
   	 </insert>
+  	 
+  	 <!-- 좋아요 취소 -->
+  	 <delete id ="deleteLike" parameterType="int">
+  	 	DELETE 
+  	 	FROM 
+  	 		`like`
+		WHERE `userId`= #{userId};
+  	 
+  	 </delete>
+  	 
+  	 
   	 <!-- 좋아요 숫자 출력 -->
   	 
   	 <select id="selectLike" parameterType = "int" resultType="com.marondal.megagram.post.model.Like">

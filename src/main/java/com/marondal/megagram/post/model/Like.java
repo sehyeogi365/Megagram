@@ -5,7 +5,7 @@ import java.util.Date;
 public class Like {
 	private int id;
 	private int userId;
-	private int postId;
+	private int postId; 
 	private Date createdAt;
 	public int getId() {
 		return id;
@@ -31,7 +31,6 @@ public class Like {
 	public void setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
 	}
-	
 	
 	
 }
