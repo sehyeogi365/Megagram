@@ -175,35 +175,54 @@
 			
 			if(id == likeIcon){//빈하트를 눌렀을때
 				alert("좋아요 누름");//좋아요 누름
-				$("#fulllikeIcon").removeClass("d-none");//검정하트 add
-														  //하얀하트 remove
-			} else { // 꽉찬 하트를 눌렀을때
+				$(".bi-heart-fill").removeClass("d-none");//검정하트 add
+				$(".bi-heart").addClass("d-none");//하얀하트 remove
+				
+				$.ajax({//api호출 api문서보면서하기
+					type:"get"
+					, url : "/post/like"
+					, data:{"userId" : userId} //사실상 글올리기랑 유사하다 함
+					, success:function(data){
+						if(data.result == "success") {
+							location.reload();//새로고침하기 가능하면 이렇게하면 깔끔함
+						} else{
+							alert("좋아요 실패");
+						}			
+					}
+					, error :function(){
+						alert("좋아요 에러");
+					}
+					
+					
+					
+				});
+			
+			
+			} else if(id == fulllikeIcon){ // 꽉찬 하트를 눌렀을때
 				alert("좋아요 취소");// 좋아요 취소
 				
-				$("#likeIcon").removeClass("d-none"); // 검정하트remove
-				 										// 하얀하트add
-			}
+				$(".bi-heart").removeClass("d-none"); // 하얀하트add
+				$(".bi-heart-fill").addClass("d-none"); // 검정하트remove
 			
+				$.ajax({//api호출 api문서보면서하기
+					type:"get"
+					, url : "/post/like_delete"
+					, data:{"userId" : userId} 
+					, success:function(data){
+						if(data.result == "success") {
+							location.reload();
+						} else{
+							alert("좋아요취소 실패");
+						}			
+					}
+					, error :function(){
+						alert("좋아요 에러");
+					}
 			
-			$.ajax({//api호출 api문서보면서하기
-				type:"post"
-				, url : "/post/like"
-				, data:{"userId" : userId} //사실상 글올리기랑 유사하다 함
-				, success:function(data){
-					if(data.result == "success") {
-						location.reload();//새로고침하기 가능하면 이렇게하면 깔끔함
-					} else{
-						alert("좋아요 실패");
-					}			
+				});	
+			
 				}
-				, error :function(){
-					alert("좋아요 에러");
-				}
-				
-				
-				
-			});
-			
+		
 		});
 		
 		
@@ -268,11 +287,10 @@
 		});
 		
 		
-		
-		
-		
-		
 	});
+
+	
+
 	</script>
 
 </body>
