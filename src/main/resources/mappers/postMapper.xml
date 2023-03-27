@@ -46,7 +46,7 @@
   	 </select>
   	 
   	 
-  	 <insert id ="insertLike" parameterType="int">
+  	 <insert id ="insertLike" parameterType="map"><!-- 여러개니 map -->
   	 	INSERT INTO
   	 		`like`
   	 		(
@@ -61,28 +61,43 @@
   	 			, now()
   	 		)
   	 </insert>
+  	  <!-- 좋아요 숫자 출력 -->
+  	 <!-- select는 그대로 int 쓰기 생략 x  -->
+  	 <select id="selectCountLike" parameterType = "int" resultType="int">
+  	 	SELECT
+  	 		count(1)
+  	 	FROM
+  	 		`like`
+  	 	WHERE `postId` = #{postId}; <!-- 전달받은 값 기반이므로 -->		
+  	 		
+  	 
+  	 </select>
+  	 
+  	 <select id="selectCountLikeByUserId" parameterType="map" resultType="int"><!-- 여러개니 map -->
+  	 	SELECT
+  	 			count(1)
+  	 	FROM	
+  	 		`like`
+  	 	WHERE
+  	 		`userId` = #{userId}
+  	 		AND `postId` = #{postId};<!-- 이번에 유저아이디까지 -->
+  	 		
+  	 
+  	 </select>
+  	 
+  	 
   	 
   	 <!-- 좋아요 취소 -->
   	 <delete id ="deleteLike" parameterType="int">
   	 	DELETE 
   	 	FROM 
   	 		`like`
-		WHERE `userId`= #{userId};
+		WHERE `postId`= #{postId};
   	 
   	 </delete>
   	 
   	 
-  	 <!-- 좋아요 숫자 출력 -->
-  	 
-  	 <select id="selectLike" parameterType = "int" resultType="com.marondal.megagram.post.model.Like">
-  	 	SELECT
-  	 		count(1)
-  	 	FROM
-  	 		`like`
-  	 		
-  	 		
-  	 
-  	 </select>
+  	
   	 
   	 
   	 

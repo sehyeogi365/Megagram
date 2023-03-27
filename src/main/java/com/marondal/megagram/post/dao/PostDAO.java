@@ -20,11 +20,19 @@ public interface PostDAO {
 	
 	public List<Post> selectPostList();//유저와 관련된 클래스에서 얻어내온다??	포스트비오에서 다오 얻어오는건 자연스럽다. 하지만..
 
-	public int insertLike(@Param("userId") int userId);
+	public int insertLike(@Param("userId") int userId
+						  , @Param("postId") int postId);
 	
-	public int deleteLike(@Param("userId") int userId);
+	public int selectCountLike(@Param("postId") int postId);
 	
-	public int selectLike(@Param("userId") int userId);
+	//좋아요 빈하트냐 아니냐 조회?
+	public int selectCountLikeByUserId(//둘다 일치하는것의 갯수 리턴
+			@Param("userId") int userId
+			,@Param("postId") int postId);//두개의 정보
+	
+	public int deleteLike(@Param("postId") int postId);
+	
+	
 	
 	
 	public int insertComment(

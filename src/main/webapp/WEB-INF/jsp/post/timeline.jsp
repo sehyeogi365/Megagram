@@ -65,13 +65,19 @@
 								<img width=100% src="${post.imagePath }"><!-- 갑자기 이거까지하니 잘된다?? -->
 							</div>
 							<!-- 하트아이콘 -->
-							<div class="p-2"> 
-								<i id="likeIcon" class="like-btn bi bi-heart" data-post-id="${post.id }" >좋아요 11개</i> 
+							<div class="p-2"> <!-- 객체화시키기 여러개 할려면? 클래스에다가 속성 부여. --><!-- 태그에다가 값 부여할려면? 역시나 data 여기다가 이름 부여해당게시글 post id -->
+								<c:choose><!-- 빈하트인지아닌지 판단 -->
+									<c:when test="${post.like}">	<!-- isLike가 아닌 like -->					
+										<i id="fulllikeIcon" class="d-none fulllike-icon bi bi-heart-fill text-danger" data-post-id="${post.id }" ></i>
+									</c:when>												<!-- 하트 빨갛게 -->
+									<c:otherwise>
+										<i id="likeIcon" class="like-icon bi bi-heart" data-post-id="${post.id }" ></i> 
+									</c:otherwise>
+									좋아요 ${post.likeCount }개
+								
 							</div>
 							<!-- 한번 누르면 검정하트 리무브 두번 누르면 하얀하트  -->
-							<div class="p-2"> 
-								<i id="fulllikeIcon" class="d-none like-btn bi bi-heart-fill" data-post-id="${post.id }" >좋아요 11개</i> 
-							</div>
+					
 							
 							
 							<div class="p-2">
@@ -163,25 +169,25 @@
 		});
 		
 		//좋아요
-		$(".like-btn").on("click", function(){
+		$(".like-icon").on("click", function(){//하나가아닌 여러개일수 있기땜에 배열형태로. 여러태그의 이벤트 모두 등록
 			
-			let id = $(this).data("post-id");
+			let postId = $(this).data("post-id");//지금 클릭한것을 객체화 this 키워드로 현재 클릭된 태그를 객체화
 			
 		
-			
-			$("#likeInput").click();
-			alert("좋아요 누름");
+			alert(postId);//내가 클릭한 그 값
 			
 			
-			if(id == likeIcon){//빈하트를 눌렀을때
+			if(postId == likeIcon){//빈하트를 눌렀을때
+				//채워진하트냐 안채워진 하트냐 조회하는것부터 구현 ㄱㄱ.
 				alert("좋아요 누름");//좋아요 누름
 				$(".bi-heart-fill").removeClass("d-none");//검정하트 add
 				$(".bi-heart").addClass("d-none");//하얀하트 remove
 				
+				//getAttribute null = 무조건 로그인 안되서 생긴 에러.
 				$.ajax({//api호출 api문서보면서하기
 					type:"get"
 					, url : "/post/like"
-					, data:{"userId" : userId} //사실상 글올리기랑 유사하다 함
+					, data:{"postId" : postId} //사실상 글올리기랑 유사하다 함
 					, success:function(data){
 						if(data.result == "success") {
 							location.reload();//새로고침하기 가능하면 이렇게하면 깔끔함
@@ -189,17 +195,15 @@
 							alert("좋아요 실패");
 						}			
 					}
-					, error :function(){
+					, error : function(){
 						alert("좋아요 에러");
-					}
+					}					
 					
-					
-					
-				});
+				});//괄호문제 땜에 좋아요가 안먹혔던것. 가장 근본적인 부분 이 여기라서 여기를 확인했어야 했다는것.
 			
 			
-			} else if(id == fulllikeIcon){ // 꽉찬 하트를 눌렀을때
-				alert("좋아요 취소");// 좋아요 취소
+			} else if(postId == fulllikeIcon){ // 분명 dao 값 불러오고 if문 쓸때까진 좋아요가 먹혔다 근데 또 안먹힘 ㄷㄷ.
+				alert("좋아요 취소");
 				
 				$(".bi-heart").removeClass("d-none"); // 하얀하트add
 				$(".bi-heart-fill").addClass("d-none"); // 검정하트remove
@@ -207,11 +211,11 @@
 				$.ajax({//api호출 api문서보면서하기
 					type:"get"
 					, url : "/post/like_delete"
-					, data:{"userId" : userId} 
+					, data:{"postId" : postId} 
 					, success:function(data){
 						if(data.result == "success") {
 							location.reload();
-						} else{
+						} else {
 							alert("좋아요취소 실패");
 						}			
 					}
@@ -219,11 +223,14 @@
 						alert("좋아요 에러");
 					}
 			
-				});	
-			
-				}
+				});
+				
+			}
+				
+				
+			}); 
 		
-		});
+		
 		
 		
 		$("#imageIcon").on("click", function(){

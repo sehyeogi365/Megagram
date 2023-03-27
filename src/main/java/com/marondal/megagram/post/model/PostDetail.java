@@ -5,6 +5,8 @@ public class PostDetail {//한 카드에 필요한 데이터들
 	private int id;
 	private int userId;
 	private String loginId;
+	private int likeCount;//좋아요 누적갯수
+	private boolean	isLike;	//좋아요 했는지 안했는지 여부 저장
 	private String content;
 	private String imagePath;
 	
@@ -37,6 +39,18 @@ public class PostDetail {//한 카드에 필요한 데이터들
 	}
 	public void setImagePath(String imagePath) {
 		this.imagePath = imagePath;
+	}
+	public int getLikeCount() {
+		return likeCount;
+	}
+	public void setLikeCount(int likeCount) {
+		this.likeCount = likeCount;
+	}
+	public boolean isLike() {
+		return isLike;
+	}
+	public void setLike(boolean isLike) {
+		this.isLike = isLike;
 	}
 	
 	//dto(데이터를 저장하기 위해 만든클래스)

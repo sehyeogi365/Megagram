@@ -21,7 +21,7 @@ public class PostRestController {
 
 	@Autowired
 	private PostBO postBO;
-	
+	//강사님은 라이크 비오 까지 어토와이어드 함
 	
 	@PostMapping("/create")
 	public Map<String, String> postCreate(	//글쓰기
@@ -47,15 +47,40 @@ public class PostRestController {
 		
 	
 	}
-	//좋아요
+	//좋아요api 강사님은 라이크레스트컨트롤러를 따로 만들어버림
 	@GetMapping("/like")
 	public Map<String, String> likeCreate(
-			@RequestParam("userId") int userId
+			@RequestParam("postId") int postId
+			//userId 세션으로 받기 세션객체로
+			, HttpSession session){
+		
+		int userId = (Integer)session.getAttribute("userId");// 세션은 항상로그인되는 과정에서 저장. 그런담에 필요한거를 꺼내 쓰는것.
+		
+		int count = postBO.addLike(userId, postId);
 			
-			){
+		Map<String, String> resultMap = new HashMap<>();
 		
-		int count = postBO.addLike(userId);
+		if(count == 1) {
+			resultMap.put("result", "success");//역시나 json 형태로 
+		} else {
+			resultMap.put("result", "fail");//결과는 역시나 json형태로 만들어진 문자열이 reponse에 담아진다.
+		}
 		
+		
+		return resultMap;
+		
+	}
+	
+	
+	//좋아요 조회 기능 빈하트냐 아니냐 (api)
+	@GetMapping("/like_select")
+	public Map<String, String> likeSelect(
+			@RequestParam("postId") int postId
+			, HttpSession session){
+		
+		int userId = (Integer)session.getAttribute("userId");
+		
+		int count = postBO.isLike(userId, postId);
 		
 		Map<String, String> resultMap = new HashMap<>();
 		
@@ -63,12 +88,13 @@ public class PostRestController {
 			resultMap.put("result", "success");
 		} else {
 			resultMap.put("result", "fail");
+			
 		}
-		
-		
 		return resultMap;
 		
 	}
+	
+	
 	
 	//좋아요 취소기능
 	

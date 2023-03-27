@@ -30,20 +30,20 @@ public class PostController {
 	@GetMapping("/timeline/view")
 	public String timeline(//모든것들다 조회해오기 비올를 통해서
 			Model model
-			, HttpSession session
+			, HttpSession session // 컨트롤러서 어디서든 세션정보 활용할수 있으니
 			) {
 		
+		int userId = (Integer)session.getAttribute("userId");
 	
 		//그럼 유저 리스트도 불러와야하나요?
 		
 		//List<User> userList = userBO.getUserList(LoginId);
 		//model.addAttribute("userList", userList);
 		//컨트롤러(jsp에게데이터 전달)도 마찬가지 그대로 쓰면 되고 비오도 마찬가지. 
-		List<PostDetail> postList = postBO.getPostList();//이 조회된 데이터를 쓰려고		
+		List<PostDetail> postList = postBO.getPostList(userId);//이 조회된 데이터를 쓰려고	userId 인자로 넣어주기	
 		model.addAttribute("postList", postList);//컨트롤러 어디서든
 		
-		
-		
+
 		List<Comment> commentList = postBO.getCommentList();
 		model.addAttribute("commentList", commentList);
 	
