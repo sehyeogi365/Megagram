@@ -80,16 +80,16 @@ public class PostRestController {
 		
 		int userId = (Integer)session.getAttribute("userId");
 		
-		int count = postBO.isLike(userId, postId);
+		//int count = postBO.isLike(userId, postId);
 		
 		Map<String, String> resultMap = new HashMap<>();
-		
-		if(count == 1) {
-			resultMap.put("result", "success");
-		} else {
-			resultMap.put("result", "fail");
-			
-		}
+//		
+//		if(count == 1) {
+//			resultMap.put("result", "success");
+//		} else {
+//			resultMap.put("result", "fail");
+//			
+//		}
 		return resultMap;
 		
 	}

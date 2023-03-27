@@ -102,7 +102,7 @@ public class PostBO {
 			return true; 
 		}
 		
-		return postDAO.selectCountLikeByUserId(userId, postId);//일치하는갯수 리턴
+		//return postDAO.selectCountLikeByUserId(userId, postId);//일치하는갯수 리턴
 
 	}
 	
