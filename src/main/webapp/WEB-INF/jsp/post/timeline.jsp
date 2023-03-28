@@ -91,9 +91,7 @@
 							<!-- 댓글 목록 -->
 							<c:forEach var="comment" items="${commentList }">
 									<div class="p-2">
-									
-									
-										<b>${comment.loginId }</b>${comment.content }<!-- 댓글내용 -->
+										<b>${comment.postId }</b>${comment.content }<!-- 댓글내용 -->
 									</div>
 								
 							</c:forEach>
@@ -103,7 +101,7 @@
 								<div>댓글</div><!-- 설명및 아이디 -->
 								
 								<div class="d-flex mt-2">
-									<input type="text" class="form-control comment-input">
+									<input type="text" class="form-control comment-input" id ="commentInput${post.id}">
 									<button type="button" id="commentBtn"class="btn btn-info btn-sm comment-btn" data-post-id="${post.id }">게시</button>
 								</div>
 								
@@ -141,18 +139,39 @@
 		//댓글
 		$(".comment-btn").on("click", function(){//id기반이아닌 클래스기반으로 할것. 왜냐면 버튼이여러개라서 사실상 댓글이 제일 어렵다고 함 좋아요부터 생각해보기.
 
+			let postId = $(this).data("post-id");
 			
-			let postId = $(this).data("post-id")
-			
-			let comment = $(".comment-input").val();//이렇게 하면 같은 알람이 뜨게 됨
+			//let comment = $(".comment-input").val();//이렇게 하면 같은 알람이 뜨게 됨
 			// 버튼에 매칭 된 input 태그를 객체화 시켜라!!
+			
+			// 버튼 바로 앞 태그를 객체화 한다
+			let comment = $(this).prev().val();
+			//id 를 하자면? 당연히 정상작동안됨 하나만 정상작동 그럼 안똑같게 값을 부여 하자면? ${post.id} 이렇게 id값 부여
+			//let comment = ("#commentInput" + postId).val(); //여기도 마찬가지로 값을 다르게 해야 한다. postId 셀렉터 부여
+					
+			
 			
 			alert(comment);
 			
-			if(comment == "") {
-				alert("댓글을 입력하세요");
-				return;
-			}
+			$.ajax({
+				type:"post"
+				, url:"/post/comment/create"
+				, data:{"postId":postId, "content":comment}
+				, success:function(data) {
+					if(data.result == "success"){
+						location.reload();
+					} else {
+						alert("댓글 쓰기 실패");
+					}
+					
+				}
+				, error:function(){
+					alert("댓글 쓰기 에러");
+				}
+				
+				
+			});
+			
 			
 			
 

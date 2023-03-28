@@ -151,10 +151,10 @@ public class PostRestController {
 			resultMap.put("result", "fail");
 		}
 		
-		return resultMap;
-		
-		
+		return resultMap;	
 	}
+	//댓글 조회
+	//굳이 만들 필요 없다는데?? 좋아요 보기도 컨트롤러에 없듯이
 	
 	//댓글 삭제
 	

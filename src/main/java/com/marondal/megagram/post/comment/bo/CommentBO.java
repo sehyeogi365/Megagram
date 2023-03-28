@@ -23,7 +23,7 @@ public class CommentBO {
 			
 
 		//댓글보기	
-		public List<Comment> getCommentList(){
+		public List<Comment> getCommentList(int userId){
 			return commentDAO.selectCommentList();
 			
 		}

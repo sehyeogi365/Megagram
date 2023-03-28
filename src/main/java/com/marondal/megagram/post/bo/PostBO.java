@@ -73,6 +73,10 @@ public class PostBO {
 			postDetail.setLoginId(user.getLoginId());//어떻게든 얻어내야하는값 테이블에서 조회해 와야함
 			postDetail.setLikeCount(likeCount);
 			postDetail.setLike(isLike);
+			postDetail.setContent(Comment.get);
+			//여기서도 댓글 쓰는거 postDetail 모델에서도 추가 하기 댓글목록이니 리스트 여야 한다는 점. ㄴ
+			
+			
 			//nullpointException이 뜬다. 여 값이 널값이란뜻 왜 널일까
 			postDetailList.add(postDetail);
 		}
