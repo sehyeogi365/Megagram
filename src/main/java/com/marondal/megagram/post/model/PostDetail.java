@@ -49,7 +49,7 @@ public class PostDetail {//한 카드에 필요한 데이터들
 	public boolean isLike() {
 		return isLike;
 	}
-	public void setLike(boolean isLike) {
+	public void setLike(boolean isLike) {// isLike가 아닌 like is로 시작하는건 게터세터규칙이 다르다 함
 		this.isLike = isLike;
 	}
 	

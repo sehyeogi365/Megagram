@@ -57,7 +57,9 @@ public class PostBO {
 			int likeCount = postDAO.selectCountLike(post.getId());//???? 굳이 라이크 비오 안만들거면 postDAO 값의 것을 불러 오라 하심post객체안에있는것은 맞다 근데 반복문 내에 있는 값자동완성 최소화 하라고 당부하심 ㅇㅇ	  
 						//likeBO.getLikeCount(post.getId());
 			
-			boolean isLike = postDAO.selectCountLikeByUserId(userId, post.getId());//parameter로 불러옴
+			
+			int isLike = postDAO.selectCountLikeByUserId(userId, post.getId());//parameter로 불러옴
+					
 			
 			PostDetail postDetail = new PostDetail();//객체생성도 직접
 			
@@ -67,7 +69,7 @@ public class PostBO {
 			postDetail.setUserId(post.getUserId());
 			postDetail.setLoginId(user.getLoginId());//어떻게든 얻어내야하는값 테이블에서 조회해 와야함
 			postDetail.setLikeCount(likeCount);
-			postDetail.setLike(isLike);
+			//postDetail.setLike(isLike);
 			//nullpointException이 뜬다. 여 값이 널값이란뜻 왜 널일까
 			postDetailList.add(postDetail);
 		}
@@ -102,7 +104,7 @@ public class PostBO {
 			return true; 
 		}
 		
-		//return postDAO.selectCountLikeByUserId(userId, postId);//일치하는갯수 리턴
+		
 
 	}
 	

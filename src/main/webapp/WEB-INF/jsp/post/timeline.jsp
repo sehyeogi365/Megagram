@@ -66,15 +66,17 @@
 							</div>
 							<!-- 하트아이콘 -->
 							<div class="p-2"> <!-- 객체화시키기 여러개 할려면? 클래스에다가 속성 부여. --><!-- 태그에다가 값 부여할려면? 역시나 data 여기다가 이름 부여해당게시글 post id -->
-								<c:choose><!-- 빈하트인지아닌지 판단 -->
-									<c:when test="${post.like}">	<!-- isLike가 아닌 like is로 시작하는건 게터세터규칙이 다르다 함-->					
-										<i id="fulllikeIcon" class="d-none fulllike-icon bi bi-heart-fill text-danger" data-post-id="${post.id }" ></i>
-									</c:when>												<!-- 하트 빨갛게 -->
+								<!-- 빈하트인지아닌지 판단 --><!-- 하트 빨갛게 -->	
+								<c:choose>
+									<c:when test="${post.like}">						
+										<i id="fulllikeIcon" class="fulllike-icon bi bi-heart-fill text-danger" data-post-id="${post.id }" ></i>좋아요 ${post.likeCount }개
+									</c:when>			
+																	
 									<c:otherwise>
-										<i id="likeIcon" class="like-icon bi bi-heart" data-post-id="${post.id }" ></i> 
+										<i id="likeIcon" class="like-icon bi bi-heart" data-post-id="${post.id }" ></i>좋아요 ${post.likeCount }개 
 									</c:otherwise>
-									좋아요 ${post.likeCount }개
-								
+									
+								</c:choose>
 							</div>
 							<!-- 한번 누르면 검정하트 리무브 두번 누르면 하얀하트  -->
 					
@@ -173,7 +175,7 @@
 			
 			let postId = $(this).data("post-id");//지금 클릭한것을 객체화 this 키워드로 현재 클릭된 태그를 객체화
 			
-		
+			
 			alert(postId);//내가 클릭한 그 값
 			
 			

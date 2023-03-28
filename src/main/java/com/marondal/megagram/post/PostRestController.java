@@ -80,7 +80,7 @@ public class PostRestController {
 		
 		int userId = (Integer)session.getAttribute("userId");
 		
-		//int count = postBO.isLike(userId, postId);
+//		int count = postBO.isLike(userId, postId);
 		
 		Map<String, String> resultMap = new HashMap<>();
 //		
@@ -101,11 +101,11 @@ public class PostRestController {
 	@GetMapping("/like_delete")
 	
 	public Map<String, String> deleteLike(
-			@RequestParam("userId") int userId){
+			@RequestParam("postId") int postId){
 		
 		Map<String, String> resultMap = new HashMap<>(); 
 		
-		int count = postBO.deleteLike(userId);
+		int count = postBO.deleteLike(postId);
 		
 		if(count == 1) {
 			resultMap.put("result", "success");
