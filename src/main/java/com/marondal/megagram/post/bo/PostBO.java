@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.marondal.megagram.common.FileManagerService;
 import com.marondal.megagram.post.dao.PostDAO;
+import com.marondal.megagram.post.like.bo.LikeBO;
 import com.marondal.megagram.post.model.Comment;
 import com.marondal.megagram.post.model.Post;
 import com.marondal.megagram.post.model.PostDetail;
@@ -27,6 +28,8 @@ public class PostBO {
 	private UserBO userBO;//비오서 비오 불러오기 같은이름의 다오는 불러오는게 자연스럽지만 다른이름의 다오는 불러오기 부자연스러움 그래서 비오를 통해서 불러온거라 함
 	
 	//강사님은 라이크비오추가
+	@Autowired
+	private LikeBO likeBO;
 	
 	//타임라인 추가
 	public int addPost(int userId, String content,  MultipartFile file) {//userId 도 추가(이미추가됨)
@@ -54,12 +57,12 @@ public class PostBO {
 			
 			User user = userBO.getUserById(post.getUserId());
 			
-			int likeCount = postDAO.selectCountLike(post.getId());//???? 굳이 라이크 비오 안만들거면 postDAO 값의 것을 불러 오라 하심post객체안에있는것은 맞다 근데 반복문 내에 있는 값자동완성 최소화 하라고 당부하심 ㅇㅇ	  
+			int likeCount = likeBO.getLikeCount(post.getId());//???? 굳이 라이크 비오 안만들거면 postDAO 값의 것을 불러 오라 하심post객체안에있는것은 맞다 근데 반복문 내에 있는 값자동완성 최소화 하라고 당부하심 ㅇㅇ	  
 						//likeBO.getLikeCount(post.getId());
 			
 			
-			int isLike = postDAO.selectCountLikeByUserId(userId, post.getId());//parameter로 불러옴
-					
+			boolean isLike = likeBO.isLike(userId, post.getId());//parameter로 불러옴
+			//boolean	
 			
 			PostDetail postDetail = new PostDetail();//객체생성도 직접
 			
@@ -69,7 +72,7 @@ public class PostBO {
 			postDetail.setUserId(post.getUserId());
 			postDetail.setLoginId(user.getLoginId());//어떻게든 얻어내야하는값 테이블에서 조회해 와야함
 			postDetail.setLikeCount(likeCount);
-			//postDetail.setLike(isLike);
+			postDetail.setLike(isLike);
 			//nullpointException이 뜬다. 여 값이 널값이란뜻 왜 널일까
 			postDetailList.add(postDetail);
 		}
@@ -80,55 +83,51 @@ public class PostBO {
 	}
 	
 	//좋아요 강사님은 아예 LikeBO ,LikeDAO를 만들어버림
-	public int addLike(int userId, int postId) {
-		
-		return postDAO.insertLike(userId, postId);
-
-	}
+//	public int addLike(int userId, int postId) {
+//		
+//		return postDAO.insertLike(userId, postId);
+//
+//	}
 	
-	//게시글하나에 대응되는 좋아요 갯수?	
-	public int getLikeCount(int postId) {//갯수리턴이니 마찬가지로 int
-		
-		return postDAO.selectCountLike(postId);//
-		
-	}
+//	//게시글하나에 대응되는 좋아요 갯수?	
+//	public int getLikeCount(int postId) {//갯수리턴이니 마찬가지로 int
+//		
+//		return postDAO.selectCountLike(postId);//
+//		
+//	}
 	
 	//좋아요가 어떤거인지 구현??? 빈하트냐 풀하트냐??	
-	public boolean isLike(int userId, int postId) {//어느 게시글이냐 사용자정보는 userId
-			
-		int count = postDAO.selectCountLikeByUserId(userId, postId);
-		
-		if(count == 0) {
-			return false;
-		} else {
-			return true; 
-		}
-		
-		
+//	public boolean isLike(int userId, int postId) {//어느 게시글이냐 사용자정보는 userId
+//			
+//		int count = postDAO.selectCountLikeByUserId(userId, postId);
+//		
+//		if(count == 0) {
+//			return false;
+//		} else {
+//			return true; 
+//		}
+//		
+//	}
+	
+//	public int unLike(int userId, int postId) {
+//		
+//		return postDAO.deleteLike(userId, postId);		
+//		//실제수행은 다오가
+//	}
 
-	}
-	
-	public int deleteLike(int postId) {
-		
-		return postDAO.deleteLike(postId);		
-		
-	}
-	
-	
-	
 	
 	//댓글달기
-	public int addComment(int userId, String content) {
-		
-		return postDAO.insertComment(userId, content);
-	}
-		
-
-	//댓글보기	
-	public List<Comment> getCommentList(){
-		return postDAO.selectCommentList();
-		
-	}
+//	public int addComment(int userId, int postId, String content) {
+//		
+//		return postDAO.insertComment(userId, postId, content);
+//	}
+//		
+//
+//	//댓글보기	
+//	public List<Comment> getCommentList(){
+//		return postDAO.selectCommentList();
+//		
+//	}
 
 
 		

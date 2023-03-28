@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.marondal.megagram.post.bo.PostBO;
+import com.marondal.megagram.post.comment.bo.CommentBO;
+import com.marondal.megagram.post.like.bo.LikeBO;
 
 @RestController//컨트롤러+리스폰스바디
 @RequestMapping("/post")
@@ -22,6 +24,12 @@ public class PostRestController {
 	@Autowired
 	private PostBO postBO;
 	//강사님은 라이크 비오 까지 어토와이어드 함
+	
+	@Autowired
+	private LikeBO likeBO;
+	
+	@Autowired
+	private CommentBO commentBO;
 	
 	@PostMapping("/create")
 	public Map<String, String> postCreate(	//글쓰기
@@ -56,7 +64,7 @@ public class PostRestController {
 		
 		int userId = (Integer)session.getAttribute("userId");// 세션은 항상로그인되는 과정에서 저장. 그런담에 필요한거를 꺼내 쓰는것.
 		
-		int count = postBO.addLike(userId, postId);
+		int count = likeBO.addLike(userId, postId);
 			
 		Map<String, String> resultMap = new HashMap<>();
 		
@@ -73,16 +81,16 @@ public class PostRestController {
 	
 	
 	//좋아요 조회 기능 빈하트냐 아니냐 (api)
-	@GetMapping("/like_select")
-	public Map<String, String> likeSelect(
-			@RequestParam("postId") int postId
-			, HttpSession session){
-		
-		int userId = (Integer)session.getAttribute("userId");
-		
+//	@GetMapping("/like_select")// 새롭게 태그를 구성한 결과로 표시
+//	public Map<String, String> likeSelect(
+//			@RequestParam("postId") int postId
+//			, HttpSession session){
+//		
+//		int userId = (Integer)session.getAttribute("userId");
+//		
 //		int count = postBO.isLike(userId, postId);
-		
-		Map<String, String> resultMap = new HashMap<>();
+//		
+//		Map<String, String> resultMap = new HashMap<>();
 //		
 //		if(count == 1) {
 //			resultMap.put("result", "success");
@@ -90,27 +98,30 @@ public class PostRestController {
 //			resultMap.put("result", "fail");
 //			
 //		}
-		return resultMap;
-		
-	}
+//		return resultMap;
+//		
+//	}
 	
 	
 	
 	//좋아요 취소기능
 	
-	@GetMapping("/like_delete")
-	
-	public Map<String, String> deleteLike(
-			@RequestParam("postId") int postId){
+	@GetMapping("/unlike")	
+	public Map<String, String> unLike(//좋아요 취소를 확인
+			@RequestParam("postId") int postId
+			,HttpSession session){//f\로그인 할때 세션에 저장해놨으니 어떤페이지든 세션의 값을 얻어쓸수 있따.
 		
-		Map<String, String> resultMap = new HashMap<>(); 
+		int userId = (Integer)session.getAttribute("userId");		
 		
-		int count = postBO.deleteLike(postId);
+		int count = likeBO.unLike(userId, postId);
 		
-		if(count == 1) {
-			resultMap.put("result", "success");
-		} else {
+		Map<String, String> resultMap = new HashMap<>(); 		
+		
+		
+		if(count == 0) {//삭제된게 없을때 fail
 			resultMap.put("result", "fail");
+		} else {
+			resultMap.put("result", "success");
 		}
 		
 		return resultMap;
@@ -118,18 +129,19 @@ public class PostRestController {
 		
 	}
 	
-	
-	
 	//댓글 달기
-	@PostMapping("/comment")
-	public Map<String, String> commentCreate(
-			 @RequestParam("userId") int userId
+	@PostMapping("/comment/create")
+	public Map<String, String> createComment(
+			 @RequestParam("postId") int postId
 			 , @RequestParam("content") String content
-			, HttpSession session
+			, HttpSession session//마찬가지로 세션에있는 로그인아이디
 			) {
 		
+		int userId = (Integer)session.getAttribute("userId");
 		
-		int count = postBO.addComment(userId, content);
+		int count = commentBO.addComment(userId, postId, content);
+		
+		
 		
 		Map<String, String> resultMap = new HashMap<>();
 		
@@ -143,6 +155,10 @@ public class PostRestController {
 		
 		
 	}
+	
+	//댓글 삭제
+	
+	
 	
 	
 	

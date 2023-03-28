@@ -68,15 +68,17 @@
 							<div class="p-2"> <!-- 객체화시키기 여러개 할려면? 클래스에다가 속성 부여. --><!-- 태그에다가 값 부여할려면? 역시나 data 여기다가 이름 부여해당게시글 post id -->
 								<!-- 빈하트인지아닌지 판단 --><!-- 하트 빨갛게 -->	
 								<c:choose>
-									<c:when test="${post.like}">						
-										<i id="fulllikeIcon" class="fulllike-icon bi bi-heart-fill text-danger" data-post-id="${post.id }" ></i>좋아요 ${post.likeCount }개
+									<c:when test="${post.like}">								<!-- 속성에 숫자나 대문자가 들어가면?? -->
+										<i  class="unlike-icon bi bi-heart-fill text-danger" data-post-id="${post.id }" ></i>좋아요 ${post.likeCount }개
 									</c:when>			
 																	
 									<c:otherwise>
-										<i id="likeIcon" class="like-icon bi bi-heart" data-post-id="${post.id }" ></i>좋아요 ${post.likeCount }개 
+										<i  class="like-icon bi bi-heart" data-post-id="${post.id }" ></i>좋아요 ${post.likeCount }개 
 									</c:otherwise>
 									
 								</c:choose>
+								
+								<!-- 여기다가 좋아요 ${post.likeCount }개  할것. -->
 							</div>
 							<!-- 한번 누르면 검정하트 리무브 두번 누르면 하얀하트  -->
 					
@@ -101,8 +103,8 @@
 								<div>댓글</div><!-- 설명및 아이디 -->
 								
 								<div class="d-flex mt-2">
-									<input type="text" class="form-control">
-									<button type="button" id="commentBtn"class="btn btn-info btn-sm comment-btn" data-comment-id="${comment.id }">게시</button>
+									<input type="text" class="form-control comment-input">
+									<button type="button" id="commentBtn"class="btn btn-info btn-sm comment-btn" data-post-id="${post.id }">게시</button>
 								</div>
 								
 							</div>
@@ -138,37 +140,51 @@
 		
 		//댓글
 		$(".comment-btn").on("click", function(){//id기반이아닌 클래스기반으로 할것. 왜냐면 버튼이여러개라서 사실상 댓글이 제일 어렵다고 함 좋아요부터 생각해보기.
+
 			
-			let id = $(this).data("comment-id")
+			let postId = $(this).data("post-id")
 			
-			let comment = $("#commentInput").val();
+			let comment = $(".comment-input").val();//이렇게 하면 같은 알람이 뜨게 됨
+			// 버튼에 매칭 된 input 태그를 객체화 시켜라!!
 			
+			alert(comment);
 			
 			if(comment == "") {
 				alert("댓글을 입력하세요");
 				return;
 			}
 			
-			$.ajax({
-				type:"post"
-					, url:"/post/comment"
-					, data:{"userId" : id, "content" : comment}
-					, success:function(data){
-						
-						if(data.result == "success"){
-							location.reload();
-							alert("댓글 성공");
-						} else {
-							alert("댓글 오류");
-						}
-					}
-					, error:function(){
-						alert("댓글 에러");
-					}
-				
-			});
+			
 
 		});
+		
+		//싫어요
+		$(".unlike-icon").on("click", function(){
+			let postId = $(this).data("post-id");//데이터 메소드는 데이터로
+			
+			$.ajax({
+				
+				type:"get"
+				, url : "/post/unlike"
+				, data:{"postId" : postId}
+				, success:function(data){
+					
+					if(data.result == "success"){
+						location.reload();//리프레쉬 시키기
+					} else {
+						alert("좋아요 취소 실패");
+					}
+					
+				}
+				, error:function(){
+					alert("좋아요 취소 에러");
+				}
+			});
+			
+			
+			
+		});
+		
 		
 		//좋아요
 		$(".like-icon").on("click", function(){//하나가아닌 여러개일수 있기땜에 배열형태로. 여러태그의 이벤트 모두 등록
@@ -178,12 +194,9 @@
 			
 			alert(postId);//내가 클릭한 그 값
 			
-			
-			if(postId == likeIcon){//빈하트를 눌렀을때
+			//if else 하지말란뜻.
+		
 				//채워진하트냐 안채워진 하트냐 조회하는것부터 구현 ㄱㄱ.
-				alert("좋아요 누름");//좋아요 누름
-				$(".bi-heart-fill").removeClass("d-none");//검정하트 add
-				$(".bi-heart").addClass("d-none");//하얀하트 remove
 				
 				//getAttribute null = 무조건 로그인 안되서 생긴 에러.
 				$.ajax({//api호출 api문서보면서하기
@@ -203,31 +216,6 @@
 					
 				});//괄호문제 땜에 좋아요가 안먹혔던것. 가장 근본적인 부분 이 여기라서 여기를 확인했어야 했다는것.
 			
-			
-			} else if(postId == fulllikeIcon){ // 분명 dao 값 불러오고 if문 쓸때까진 좋아요가 먹혔다 근데 또 안먹힘 ㄷㄷ.
-				alert("좋아요 취소");
-				
-				$(".bi-heart").removeClass("d-none"); // 하얀하트add
-				$(".bi-heart-fill").addClass("d-none"); // 검정하트remove
-			
-				$.ajax({//api호출 api문서보면서하기
-					type:"get"
-					, url : "/post/like_delete"
-					, data:{"postId" : postId} 
-					, success:function(data){
-						if(data.result == "success") {
-							location.reload();
-						} else {
-							alert("좋아요취소 실패");
-						}			
-					}
-					, error :function(){
-						alert("좋아요 에러");
-					}
-			
-				});
-				
-			}
 				
 				
 			}); 

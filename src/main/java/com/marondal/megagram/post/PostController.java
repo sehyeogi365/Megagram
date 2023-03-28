@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.marondal.megagram.post.bo.PostBO;
+import com.marondal.megagram.post.comment.bo.CommentBO;
 import com.marondal.megagram.post.model.Comment;
 import com.marondal.megagram.post.model.Post;
 import com.marondal.megagram.post.model.PostDetail;
@@ -26,6 +27,9 @@ public class PostController {
 	
 	@Autowired 
 	private UserBO userBO;
+	
+	@Autowired
+	private CommentBO commentBO;
 	
 	@GetMapping("/timeline/view")
 	public String timeline(//모든것들다 조회해오기 비올를 통해서
@@ -44,7 +48,7 @@ public class PostController {
 		model.addAttribute("postList", postList);//컨트롤러 어디서든
 		
 
-		List<Comment> commentList = postBO.getCommentList();
+		List<Comment> commentList = commentBO.getCommentList();
 		model.addAttribute("commentList", commentList);
 	
 		
