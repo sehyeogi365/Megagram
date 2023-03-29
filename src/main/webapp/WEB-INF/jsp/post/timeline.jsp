@@ -90,8 +90,8 @@
 							
 							<!-- 댓글 목록 -->
 							<c:forEach var="comment" items="${commentList }">
-									<div class="p-2"><!-- 댓글내역이 각 포스트 마다 똑같이 뜬다?? 그러면 어떡하나? -->
-										<b>${post.loginId }</b>${comment.content }<!-- 댓글내용 -->
+									<div class="p-2"><!-- 댓글내역이 각 포스트 마다 똑같이 뜬다?? 그러면 어떡하나? 그리고 로그인한 아이디의 댓글만 보인다 -->
+										<b>${comment.postId }</b>${comment.content }<!-- 댓글내용 -->
 									</div>
 								
 							</c:forEach>
