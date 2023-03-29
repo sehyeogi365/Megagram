@@ -56,7 +56,7 @@
 						<!-- https://icons.getbootstrap.com/ -->
 							<div class="d-flex justify-content-between p-2"><!-- 여백까지 -->
 								<div>${post.loginId}</div><!-- 근데 게시글 올린사용자 정보 불러오려면?? post객체안의 데이터만 불러올수 있는데 어떻게 불러올것인가?? -->
-								<div><i class="bi bi-three-dots"></i></div><!-- i태그만 넣으면 안됨 -->
+								<div><i class="bi bi-three-dots" data-taoggle="modal" data-target="#moreModal"></i></div><!-- i태그만 넣으면 안됨 -->
 							
 							
 							</div>
@@ -88,28 +88,33 @@
 								<b>${post.loginId }</b> ${post.content } 
 							</div>
 							
-							<!-- 댓글 목록 -->
-							<c:forEach var="comment" items="${commentList }">
-									<div class="p-2"><!-- 댓글내역이 각 포스트 마다 똑같이 뜬다?? 그러면 어떡하나? 그리고 로그인한 아이디의 댓글만 보인다 -->
-										<b>${comment.postId }</b>${comment.content }<!-- 댓글내용 -->
-									</div>
-								
-							</c:forEach>
+						
+							
 							
 							<!-- 댓글 박스 -->
-							<div class="p-2">
-								<div>댓글</div><!-- 설명및 아이디 -->
+							
+							<div class="small">
+							
+								<div class="p-2">댓글</div><!-- 설명및 아이디 --><!-- 모델안의 객체를 불러오는것 PostDetail.java-->
+								<c:forEach var="comment" items="${post.commentList }"><!-- 리스트 안에있는 객체체 안에있는 그값?? -->
+									<div class="px-2"><!-- 댓글내역이 각 포스트 마다 똑같이 뜬다?? 그러면 어떡하나? 그리고 로그인한 아이디의 댓글만 보인다 -->
+										<b>${comment.userLoginId }</b>${comment.content }<!-- 댓글내용 --><!-- 게시물 별로 댓글 조회하기 -->
+									</div>
 								
+								</c:forEach>
 								<div class="d-flex mt-2">
 									<input type="text" class="form-control comment-input" id ="commentInput${post.id}">
 									<button type="button" id="commentBtn"class="btn btn-info btn-sm comment-btn" data-post-id="${post.id }">게시</button>
 								</div>
 								
-							</div>
-							
-					</div>
+								</div>
+								
+						</div>
 					
-					</c:forEach>
+						</c:forEach>
+					
+					<!-- / 댓글 박스 -->
+					
 					<!-- /게시글 카드 -->
 					
 					<!-- 게시글 카드 -->
@@ -125,8 +130,32 @@
 				
 		</section>
 		<c:import url="/WEB-INF/jsp/include/footer.jsp"/>
+		
+			<!-- Button trigger modal -->
+		<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#moreModal">
+		  Launch static backdrop modal
+		</button>
+
+	<!-- Modal -->
+	<div class="modal fade" id="moreModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      </div>
+	      <div class="modal-body text-center">
+	        <a href="#">삭제하기</a>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+	        <button type="button" class="btn btn-primary">Understood</button>
+	      </div>
+	    </div>
+	  </div>
 	</div>
-	
+	</div>
+
 	<script>
 	$(document).ready(function(){
 		

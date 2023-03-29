@@ -1,5 +1,7 @@
 package com.marondal.megagram.post.model;
 
+import java.util.List;
+
 public class PostDetail {//한 카드에 필요한 데이터들
 	
 	private int id;
@@ -8,9 +10,8 @@ public class PostDetail {//한 카드에 필요한 데이터들
 	private int likeCount;//좋아요 누적갯수
 	private boolean	isLike;	//좋아요 했는지 안했는지 여부 저장
 	private String content;
-	private String comment;//댓글
+	private List<CommentDetail> commentList;//댓글 list는 이렇게 한다.
 	private String imagePath;
-	
 	public int getId() {
 		return id;
 	}
@@ -29,18 +30,6 @@ public class PostDetail {//한 카드에 필요한 데이터들
 	public void setLoginId(String loginId) {
 		this.loginId = loginId;
 	}
-	public String getContent() {
-		return content;
-	}
-	public void setContent(String content) {
-		this.content = content;
-	}
-	public String getImagePath() {
-		return imagePath;
-	}
-	public void setImagePath(String imagePath) {
-		this.imagePath = imagePath;
-	}
 	public int getLikeCount() {
 		return likeCount;
 	}
@@ -50,20 +39,30 @@ public class PostDetail {//한 카드에 필요한 데이터들
 	public boolean isLike() {
 		return isLike;
 	}
-	public void setLike(boolean isLike) {// isLike가 아닌 like is로 시작하는건 게터세터규칙이 다르다 함
+	public void setLike(boolean isLike) {
 		this.isLike = isLike;
 	}
-	public String getComment() {
-		return comment;
+	public String getContent() {
+		return content;
 	}
-	public void setComment(String comment) {
-		this.comment = comment;
+	public void setContent(String content) {
+		this.content = content;
 	}
-	public void setComment(Post post) {
-		// TODO Auto-generated method stub
-		
+	public List<CommentDetail> getCommentList() {
+		return commentList;
+	}
+	public void setCommentList(List<CommentDetail> commentList) {
+		this.commentList = commentList;
+	}
+	public String getImagePath() {
+		return imagePath;
+	}
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
 	}
 	
+	
+
 	//dto(데이터를 저장하기 위해 만든클래스)
 	
 }

@@ -12,6 +12,7 @@ import com.marondal.megagram.post.comment.bo.CommentBO;
 import com.marondal.megagram.post.dao.PostDAO;
 import com.marondal.megagram.post.like.bo.LikeBO;
 import com.marondal.megagram.post.model.Comment;
+import com.marondal.megagram.post.model.CommentDetail;
 import com.marondal.megagram.post.model.Post;
 import com.marondal.megagram.post.model.PostDetail;
 import com.marondal.megagram.user.bo.UserBO;
@@ -59,9 +60,7 @@ public class PostBO {
 			
 			//카드를 구성하기위한 포스트디테일객체
 			
-			User user = userBO.getUserById(post.getUserId());
-			
-			
+			User user = userBO.getUserById(post.getUserId());	
 			int likeCount = likeBO.getLikeCount(post.getId());//???? 굳이 라이크 비오 안만들거면 postDAO 값의 것을 불러 오라 하심post객체안에있는것은 맞다 근데 반복문 내에 있는 값자동완성 최소화 하라고 당부하심 ㅇㅇ	  
 						//likeBO.getLikeCount(post.getId());
 			
@@ -69,10 +68,10 @@ public class PostBO {
 			boolean isLike = likeBO.isLike(userId, post.getId());//parameter로 불러옴
 			//boolean	
 			
-			
-			List<Comment> comment = commentBO.getCommentList(post.getUserId());//, post.getId()
-			
-			
+			//게시물 별로 댓글'들' 가져오기
+			//커멘트 비오 호출
+			List<CommentDetail> commentList = commentBO.getCommentList(post.getId());//, post.getId() 게시글 별로
+	
 			PostDetail postDetail = new PostDetail();//객체생성도 직접
 			
 			postDetail.setId(post.getId());
@@ -82,10 +81,11 @@ public class PostBO {
 			postDetail.setLoginId(user.getLoginId());//어떻게든 얻어내야하는값 테이블에서 조회해 와야함
 			postDetail.setLikeCount(likeCount);
 			postDetail.setLike(isLike);
-			postDetail.setComment(post);
-			//여기서도 댓글 쓰는거 postDetail 모델에서도 추가 하기 댓글목록이니 리스트 여야 한다는 점. ㄴ
+			postDetail.setCommentList(commentList);//불로온 객체를 그대로 전달
 			
+			//여기서도 댓글 쓰는거 postDetail 모델에서도 추가 하기 댓글목록이니 리스트 여야 한다는 점. 
 			
+			//컨트롤러는 전달해줄 뿐 
 			//nullpointException이 뜬다. 여 값이 널값이란뜻 왜 널일까
 			postDetailList.add(postDetail);
 		}
@@ -94,6 +94,17 @@ public class PostBO {
 		//객체 생성부터 값을 넣는것까지 직접다해야함.
 		
 	}
+	
+	public int deletePost(int postId) {
+		
+		List<Post> post = postDAO.selectPostList();
+		FileManagerService.removeFile(post.getImagePath());
+		
+		
+		return postDAO.deletePost(postId);
+	}
+	
+	
 	
 	//좋아요 강사님은 아예 LikeBO ,LikeDAO를 만들어버림
 //	public int addLike(int userId, int postId) {

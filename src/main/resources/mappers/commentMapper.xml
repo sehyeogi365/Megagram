@@ -31,7 +31,7 @@
   	 </insert>
   	 
   	 <select id="selectCommentList" parameterType="int"
-  	 resultType="com.marondal.megagram.post.model.Comment">
+  	 resultType="com.marondal.megagram.post.model.Comment"><!-- postId 하나만이므로 int resultType직접만든거이므로 패키지명까지 -->
   	 	SELECT
   				`id`
 				, `userId`
@@ -42,7 +42,7 @@
   		FROM
   				`comment`
   	 	WHERE 
-  	 		`userId` = #{userId}
+  	 		`postId` = #{postId}<!-- 파라미터로 전달된 값 -->
   		
   	 	ORDER BY
   	 		`id`DESC

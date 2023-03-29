@@ -9,7 +9,7 @@ public class Comment {
 	private int postId;
 	private String content;
 	private Date createdAt;
-	private Date updateAt;
+	private Date updatedAt;
 	public int getId() {
 		return id;
 	}
@@ -40,12 +40,13 @@ public class Comment {
 	public void setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
 	}
-	public Date getUpdateAt() {
-		return updateAt;
+	public Date getUpdatedAt() {
+		return updatedAt;
 	}
-	public void setUpdateAt(Date updateAt) {
-		this.updateAt = updateAt;
+	public void setUpdatedAt(Date updatedAt) {
+		this.updatedAt = updatedAt;
 	}
+
 	
 	
 }

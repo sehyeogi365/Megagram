@@ -153,10 +153,28 @@ public class PostRestController {
 		
 		return resultMap;	
 	}
-	//댓글 조회
-	//굳이 만들 필요 없다는데?? 좋아요 보기도 컨트롤러에 없듯이
 	
-	//댓글 삭제
+	@GetMapping("/delete")
+	public  Map<String, String> deletePost(
+			@RequestParam("postId") int postId
+			
+			) {
+		int count = postBO.deletePost(postId);
+		
+		
+		Map<String, String> resultMap = new HashMap<>();
+		
+		
+		if(count == 1) {
+			resultMap.put("result", "success");
+		} else {
+			resultMap.put("result", "fail");
+		}
+		
+		
+		return resultMap;
+		
+	}
 	
 	
 	

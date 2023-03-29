@@ -48,9 +48,9 @@ public class PostController {
 		List<PostDetail> postList = postBO.getPostList(userId);//이 조회된 데이터를 쓰려고	userId 인자로 넣어주기	
 		model.addAttribute("postList", postList);//컨트롤러 어디서든
 		
-
-		List<Comment> commentList = commentBO.getCommentList(userId);//, postId
-		model.addAttribute("commentList", commentList);
+		
+//		List<Comment> commentList = commentBO.getCommentList(userId);//, postId
+//		model.addAttribute("commentList", commentList); 이거를 비오에호출
 		//좋아요도 조회기능 없듯이 이것도 안해도 된다하는데.
 		
 		

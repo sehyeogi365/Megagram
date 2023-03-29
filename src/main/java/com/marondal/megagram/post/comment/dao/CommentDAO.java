@@ -18,8 +18,5 @@ public interface CommentDAO {
 			);
 
 
-	public List<Comment> selectCommentList(
-			@Param("userId") int userId
-//			, @Param("postId") int postId
-			);
+	public List<Comment> selectCommentList(@Param("postId") int postId);
 }

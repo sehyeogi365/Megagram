@@ -6,23 +6,29 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.marondal.megagram.common.FileManagerService;
 
 public class FileManagerService {//파일저장 서비스 
 
 	
 	public static final String FILE_UPLOAD_PATH = "D:\\임세혁\\spring\\springProject\\upload\\megagram\\image"; //이렇게 되면 상수가 된다.
+	
+	private static Logger logger = LoggerFactory.getLogger(FileManagerService.class);
 	//member변수 웬만하면 public안쓴다.				//경로 잘 지정하고 슬래쉬 잘구분하기(메가그램거이므로 경로 수정)
 // 파일 저장 -> 경로 생성
 // 객체 생성없이 쓸수 있는 메소드 -> static 객체생성없이 쓸수 있도록 구성
-public static String saveFile(int userId, MultipartFile file) {//접근하기 위한 경로 리턴
+	public static String saveFile(int userId, MultipartFile file) {//접근하기 위한 경로 리턴
 				//리턴값: 경로가 되야하므로 스트링 사용자정보 이므로 userId 그리고 메모거 그대로 복사하는건 잘함 ㅇㅇ.
 	
-	if(file == null) {//file이 널이라면?
-		
-		return null;
-		
-	}
+		if(file == null) {//file이 널이라면?
+			
+			return null;
+			
+		}
 	
 	// 파일명이 같으면 안되니 그거 생각 
 	// 사용자 별로 폴더 구분 
@@ -37,7 +43,7 @@ public static String saveFile(int userId, MultipartFile file) {//접근하기 �
 	File directory = new File(directoryPath);//java.io.file 
 	if(!directory.mkdir()){//makedirectory
 		//디렉토리 생성 실패 
-		
+		logger.error("saveFile : 디렉토리 생성 실패 " + directoryPath);
 		return null;
 	}
 	
@@ -65,5 +71,54 @@ public static String saveFile(int userId, MultipartFile file) {//접근하기 �
 	return "/images" + directoryName + file.getOriginalFilename();//
 	
 }
+
+	public static boolean removeFile(String filePath) {
+		
+		
+		if(filePath == null) {
+			logger.info("삭제 대상 파일 없음");
+			return false;
+		}
+		
+		String fullFilePath = FILE_UPLOAD_PATH + filePath.replace("/images", "");
+		Path path = Paths.get(fullFilePath);
+		
+		if(Files.exists(path)) {
+			
+			try {
+				Files.delete(path);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				logger.error("removeFile : 파일 삭제 에러 " + fullFilePath);
+				e.printStackTrace();
+				return false;
+			}
+		}
+		
+		
+		
+		Path dirPath = path.getParent();
+		
+		if(Files.exists(dirPath)) {
+			
+			try {
+				Files.delete(dirPath);
+			} catch (IOException e) {
+				logger.error("removeFile : 디렉토리 삭제 " + fullFilePath);
+				e.printStackTrace();
+				return false;
+			}
+			
+		}
+		
+		
+		
+		
+		return true;
+		
+	}
+	
+	
+	
 
 }
