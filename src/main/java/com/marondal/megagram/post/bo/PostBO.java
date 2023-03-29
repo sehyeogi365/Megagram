@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.marondal.megagram.common.FileManagerService;
+import com.marondal.megagram.post.comment.bo.CommentBO;
 import com.marondal.megagram.post.dao.PostDAO;
 import com.marondal.megagram.post.like.bo.LikeBO;
 import com.marondal.megagram.post.model.Comment;
@@ -30,6 +31,9 @@ public class PostBO {
 	//강사님은 라이크비오추가
 	@Autowired
 	private LikeBO likeBO;
+	
+	@Autowired
+	private CommentBO commentBO;
 	
 	//타임라인 추가
 	public int addPost(int userId, String content,  MultipartFile file) {//userId 도 추가(이미추가됨)
@@ -57,12 +61,17 @@ public class PostBO {
 			
 			User user = userBO.getUserById(post.getUserId());
 			
+			
 			int likeCount = likeBO.getLikeCount(post.getId());//???? 굳이 라이크 비오 안만들거면 postDAO 값의 것을 불러 오라 하심post객체안에있는것은 맞다 근데 반복문 내에 있는 값자동완성 최소화 하라고 당부하심 ㅇㅇ	  
 						//likeBO.getLikeCount(post.getId());
 			
 			
 			boolean isLike = likeBO.isLike(userId, post.getId());//parameter로 불러옴
 			//boolean	
+			
+			
+			List<Comment> comment = commentBO.getCommentList(userId);
+			
 			
 			PostDetail postDetail = new PostDetail();//객체생성도 직접
 			
@@ -73,7 +82,7 @@ public class PostBO {
 			postDetail.setLoginId(user.getLoginId());//어떻게든 얻어내야하는값 테이블에서 조회해 와야함
 			postDetail.setLikeCount(likeCount);
 			postDetail.setLike(isLike);
-			postDetail.setContent(Comment.get);
+			postDetail.setComment(post);
 			//여기서도 댓글 쓰는거 postDetail 모델에서도 추가 하기 댓글목록이니 리스트 여야 한다는 점. ㄴ
 			
 			

@@ -48,8 +48,8 @@ public class PostController {
 		model.addAttribute("postList", postList);//컨트롤러 어디서든
 		
 
-//		List<Comment> commentList = commentBO.getCommentList();
-//		model.addAttribute("commentList", commentList);
+		List<Comment> commentList = commentBO.getCommentList(userId);
+		model.addAttribute("commentList", commentList);
 		//좋아요도 조회기능 없듯이 이것도 안해도 된다하는데.
 		
 		

@@ -8,6 +8,7 @@ public class PostDetail {//한 카드에 필요한 데이터들
 	private int likeCount;//좋아요 누적갯수
 	private boolean	isLike;	//좋아요 했는지 안했는지 여부 저장
 	private String content;
+	private String comment;//댓글
 	private String imagePath;
 	
 	public int getId() {
@@ -51,6 +52,16 @@ public class PostDetail {//한 카드에 필요한 데이터들
 	}
 	public void setLike(boolean isLike) {// isLike가 아닌 like is로 시작하는건 게터세터규칙이 다르다 함
 		this.isLike = isLike;
+	}
+	public String getComment() {
+		return comment;
+	}
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
+	public void setComment(Post post) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	//dto(데이터를 저장하기 위해 만든클래스)
