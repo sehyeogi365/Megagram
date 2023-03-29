@@ -35,6 +35,7 @@
   	 	SELECT
   				`id`
 				, `userId`
+				, `postId`
 				, `content`
 				, `createdAt`
 				, `updatedAt`
@@ -42,6 +43,7 @@
   				`comment`
   	 	WHERE 
   	 		`userId` = #{userId}
+  		
   	 	ORDER BY
   	 		`id`DESC
   	 

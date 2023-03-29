@@ -70,7 +70,7 @@ public class PostBO {
 			//boolean	
 			
 			
-			List<Comment> comment = commentBO.getCommentList(post.getUserId());
+			List<Comment> comment = commentBO.getCommentList(post.getUserId());//, post.getId()
 			
 			
 			PostDetail postDetail = new PostDetail();//객체생성도 직접

@@ -38,7 +38,8 @@ public class PostController {
 			) {
 		
 		int userId = (Integer)session.getAttribute("userId");
-	
+//		int postId = (Integer)session.getAttribute("postId");
+//		String content = (String) session.getAttribute("content");
 		//그럼 유저 리스트도 불러와야하나요?
 		
 		//List<User> userList = userBO.getUserList(LoginId);
@@ -48,7 +49,7 @@ public class PostController {
 		model.addAttribute("postList", postList);//컨트롤러 어디서든
 		
 
-		List<Comment> commentList = commentBO.getCommentList(userId);
+		List<Comment> commentList = commentBO.getCommentList(userId);//, postId
 		model.addAttribute("commentList", commentList);
 		//좋아요도 조회기능 없듯이 이것도 안해도 된다하는데.
 		
