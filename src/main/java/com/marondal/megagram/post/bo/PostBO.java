@@ -105,53 +105,7 @@ public class PostBO {
 	}
 	
 	
-	
-	//좋아요 강사님은 아예 LikeBO ,LikeDAO를 만들어버림
-//	public int addLike(int userId, int postId) {
-//		
-//		return postDAO.insertLike(userId, postId);
-//
-//	}
-	
-//	//게시글하나에 대응되는 좋아요 갯수?	
-//	public int getLikeCount(int postId) {//갯수리턴이니 마찬가지로 int
-//		
-//		return postDAO.selectCountLike(postId);//
-//		
-//	}
-	
-	//좋아요가 어떤거인지 구현??? 빈하트냐 풀하트냐??	
-//	public boolean isLike(int userId, int postId) {//어느 게시글이냐 사용자정보는 userId
-//			
-//		int count = postDAO.selectCountLikeByUserId(userId, postId);
-//		
-//		if(count == 0) {
-//			return false;
-//		} else {
-//			return true; 
-//		}
-//		
-//	}
-	
-//	public int unLike(int userId, int postId) {
-//		
-//		return postDAO.deleteLike(userId, postId);		
-//		//실제수행은 다오가
-//	}
 
-	
-	//댓글달기
-//	public int addComment(int userId, int postId, String content) {
-//		
-//		return postDAO.insertComment(userId, postId, content);
-//	}
-//		
-//
-//	//댓글보기	
-//	public List<Comment> getCommentList(){
-//		return postDAO.selectCommentList();
-//		
-//	}
 
 
 		

@@ -80,27 +80,7 @@ public class PostRestController {
 	}
 	
 	
-	//좋아요 조회 기능 빈하트냐 아니냐 (api)
-//	@GetMapping("/like_select")// 새롭게 태그를 구성한 결과로 표시
-//	public Map<String, String> likeSelect(
-//			@RequestParam("postId") int postId
-//			, HttpSession session){
-//		
-//		int userId = (Integer)session.getAttribute("userId");
-//		
-//		int count = postBO.isLike(userId, postId);
-//		
-//		Map<String, String> resultMap = new HashMap<>();
-//		
-//		if(count == 1) {
-//			resultMap.put("result", "success");
-//		} else {
-//			resultMap.put("result", "fail");
-//			
-//		}
-//		return resultMap;
-//		
-//	}
+
 	
 	
 	
