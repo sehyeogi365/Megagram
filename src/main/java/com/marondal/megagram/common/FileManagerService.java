@@ -96,7 +96,8 @@ public class FileManagerService {//파일저장 서비스
 		}
 		
 		
-		
+		//디렉토리 제거 
+		//상위 경로 디렉토리 경로
 		Path dirPath = path.getParent();
 		
 		if(Files.exists(dirPath)) {

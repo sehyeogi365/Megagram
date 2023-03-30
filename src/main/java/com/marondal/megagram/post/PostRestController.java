@@ -135,11 +135,13 @@ public class PostRestController {
 	}
 	
 	@GetMapping("/delete")
-	public  Map<String, String> deletePost(
+	public Map<String, String> deletePost(//
 			@RequestParam("postId") int postId
-			
+			, HttpSession session//유저아이디 불러오기
 			) {
-		int count = postBO.deletePost(postId);
+		int userId = (Integer)session.getAttribute("userId");
+		
+		int count = postBO.deletePost(userId, postId);//수행된 행의갯수리턴
 		
 		
 		Map<String, String> resultMap = new HashMap<>();
@@ -155,6 +157,9 @@ public class PostRestController {
 		return resultMap;
 		
 	}
+	
+	
+	
 	
 	
 	

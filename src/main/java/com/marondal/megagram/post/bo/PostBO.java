@@ -95,18 +95,56 @@ public class PostBO {
 		
 	}
 	
-	public int deletePost(int postId) {
+	public int deletePost(int userId, int postId) {//유저아이디 전달받기 일단
 		
-		List<Post> post = postDAO.selectPostList();
-		FileManagerService.removeFile(post.getImagePath());
+		Post post = postDAO.selectPostByUserId(userId, postId);
+		
+		//조회된 데이터가 있을때만 
+		if(post != null) {
+			FileManagerService.removeFile(post.getImagePath());//항상이미지가 포함되어있으니 이미지 삭제기능 이미지 경로가 필요함.
+			//이미지경로 얻어온다.
+			
+			//댓글
+		
+			commentBO.deleteCommentByPostId(postId);//댓글삭제
+			
+			//좋아요
+			likeBO.deleteLikeByPostId(postId);//좋아요 삭제		
+			return postDAO.deletePost(postId);//1이 정상적으로 삭제된걸 알려주는 기능
+				//리턴값은 이걸로
+		} else {
+			return 0;
+		}
 		
 		
-		return postDAO.deletePost(postId);
+		
+		
+		
+		//id가 일치하는 사람의 것만 삭제 해야한다. 그럴려면 어떢해야 하는가?
+		//if를 해야하나??
+		
+		
+		
+			
+		
+			
+		
+	
+		
+		
+		
+		
+	
+		
+		
+		
+		
+	
+	
+	
+	
+
 	}
-	
-	
-
-
 
 		
 }

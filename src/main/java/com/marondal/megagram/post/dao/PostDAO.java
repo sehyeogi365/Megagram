@@ -21,7 +21,13 @@ public interface PostDAO {
 	public List<Post> selectPostList();//유저와 관련된 클래스에서 얻어내온다??	포스트비오에서 다오 얻어오는건 자연스럽다. 하지만..
 
 	
-	public int deletePost(@Param("postId") int postId);
+	public Post selectPostByUserId(
+							 @Param("userId") int userId
+							,@Param("id") int id);//이미지경로 얻어오기
+	
+	public int deletePost(@Param("id") int id);//그냥 id로하기
+	
+	
 	
 	
 //	public int insertLike(@Param("userId") int userId

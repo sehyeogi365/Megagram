@@ -53,6 +53,12 @@ public class CommentBO {
 			return commentDetailList;
 
 		}
+		
+		
+		public int deleteCommentByPostId(int postId) {
+			return commentDAO.deleteCommentByPostId(postId);//댓글까지 삭제하기
+			
+		}
 
 
 

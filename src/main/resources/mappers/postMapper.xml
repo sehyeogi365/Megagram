@@ -45,17 +45,34 @@
   			`id` DESC;<!-- 최신순서대로 -->
   	 </select>
   	 
+  	 <select id="selectPostByUserId" parameterType="map" 
+  	 resultType="com.marondal.megagram.post.model.Post">
+  	 	SELECT
+  				`id`
+				, `userId`
+				, `content`
+				, `imagePath`
+				, `createdAt`
+				, `updatedAt`
+  		FROM
+  				`post`
+  		WHERE	
+  				`id` = #{id} <!-- 한행의 정보 가져온다. -->			
+  				AND `userId` = #{userId}
+  	 </select>
+  	 
+  	 
   	
   	<delete id ="deletePost" parameterType="int">
   	
   		DELETE FROM
   			`post`
   		WHERE
-  			`id` = #{id}
+  			`id` = #{id}<!-- id가일치하는 한행 -->
   	
   	</delete>
   	 
-  	 
+
   	 
   	
   

@@ -56,8 +56,12 @@
 						<!-- https://icons.getbootstrap.com/ -->
 							<div class="d-flex justify-content-between p-2"><!-- 여백까지 -->
 								<div>${post.loginId}</div><!-- 근데 게시글 올린사용자 정보 불러오려면?? post객체안의 데이터만 불러올수 있는데 어떻게 불러올것인가?? -->
-								<div><i class="bi bi-three-dots" data-taoggle="modal" data-target="#moreModal"></i></div><!-- i태그만 넣으면 안됨 -->
-							
+								
+								<c:if test="${userId eq post.userId }"><!-- 게시글 유저아이디 로그인아이디 일치여부 확인 -->
+								<!-- data-toggle="modal" data-target="#moreModal" --><!-- 이렇게하면 남이쓴거는 ...이안보인다. -->
+									
+									<div><i class="bi bi-three-dots more-icon" data-post-id="${post.id}" data-toggle="modal" data-target="#moreModal"></i></div><!-- i태그만 넣으면 안됨 -->
+								</c:if>																					<!-- 이렇게 아이디 값 부여해야줘야 나온다. -->
 							
 							</div>
 							
@@ -131,30 +135,25 @@
 		</section>
 		<c:import url="/WEB-INF/jsp/include/footer.jsp"/>
 		
-			<!-- Button trigger modal -->
-		<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#moreModal">
-		  Launch static backdrop modal
+		<!-- Button trigger modal -->
+		<button type="button" class="btn btn-primary" data-post-id="${post.id }" data-bs-toggle="modal" data-target="#moreModal"><!-- 버튼태그의 두개의 속성을 아이디에 잘맞춰주면 동작하는구나 -->
+		  Launch demo modal
 		</button>
-
-	<!-- Modal -->
-	<div class="modal fade" id="moreModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-	  <div class="modal-dialog modal-dialog-centered" role="document">
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
-	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-	      </div>
-	      <div class="modal-body text-center">
-	        <a href="#">삭제하기</a>
-	      </div>
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-	        <button type="button" class="btn btn-primary">Understood</button>
-	      </div>
-	    </div>
-	  </div>
-	</div>
-	</div>
+		
+		<!-- Modal -->
+		<div class="modal fade" id="moreModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		  <div class="modal-dialog modal-dialog-centered" role="document">
+		    <div class="modal-content">
+		    
+		
+		      <div class="modal-body text-center">
+		       	<a href="#" id="deleteBtn">삭제하기</a> <!-- 동떨어진 하나의 태그기때문에 쓸수 있는정보가 암것도 없다. -->
+		      </div><!-- 객체화시켜야 하므로 아이디 부여 --><!-- 속성을 동적으로 추가할려면? -->
+		      
+		   
+		    </div>
+		  </div>
+		</div>
 
 	<script>
 	$(document).ready(function(){
@@ -164,6 +163,53 @@
 		ths.parents("");
 		
 		var id = "id";
+		
+		
+		$("#deleteBtn").on("click", function(){//모달 삭제 버튼
+			let postId = $(this).data("post-id");
+		
+			$.ajax({//디비, 실제사진파일까지 삭제됐는지 확인
+				
+				type:"get"
+				, url:"/post/delete"
+				, data:{"postId":postId}
+				, success:function(data) {
+					if(data.result == "success"){
+						location.reload();
+					} else {
+						alert("삭제 실패");
+					}
+					
+				}
+				, error:function(){
+					alert("삭제 에러");
+				}
+			
+				
+			});
+			
+		});
+		
+		
+		
+		//삭제
+		$(".more-icon").on("click", function(){
+			
+			let postId = $(this).data("post-id");//클릭한 그값
+	
+			
+			// data-post-id = "postId" 
+			$("#deleteBtn").data("post-id", postId);// , 뒤에 저장하고픈 값 추가  삭제버튼에 추가
+			//
+
+			<!--모달 하느라 삭제기능은 당분간 없애기 -->
+			/*
+		
+			
+			*/
+			
+		});
+		
 		
 		//댓글
 		$(".comment-btn").on("click", function(){//id기반이아닌 클래스기반으로 할것. 왜냐면 버튼이여러개라서 사실상 댓글이 제일 어렵다고 함 좋아요부터 생각해보기.

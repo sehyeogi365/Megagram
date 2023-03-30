@@ -38,4 +38,10 @@ public class LikeBO {
 		return likeDAO.deleteLike(userId, postId);
 		//실제수행은 다오가
 	}
+	
+	public int deleteLikeByPostId(int postId) {
+		return likeDAO.deleteLikeByPostId(postId);
+		
+	}
+	
 }
