@@ -224,7 +224,11 @@
 			//id 를 하자면? 당연히 정상작동안됨 하나만 정상작동 그럼 안똑같게 값을 부여 하자면? ${post.id} 이렇게 id값 부여
 			//let comment = ("#commentInput" + postId).val(); //여기도 마찬가지로 값을 다르게 해야 한다. postId 셀렉터 부여
 					
-			
+			//개인적으로 추가한 내용
+			if(comment == ""){
+				alert("댓글을 입력하세요");
+				return ;
+			}
 			
 			alert(comment);
 			
