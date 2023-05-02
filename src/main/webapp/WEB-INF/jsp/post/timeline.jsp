@@ -111,10 +111,10 @@
 									<button type="button" id="commentBtn"class="btn btn-info btn-sm comment-btn" data-post-id="${post.id }">게시</button>
 								</div>
 								
-								</div>
+							</div>
 								
 						</div>
-					
+						</div>
 						</c:forEach>
 					
 					<!-- / 댓글 박스 -->
