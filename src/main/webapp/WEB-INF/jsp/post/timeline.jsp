@@ -133,6 +133,7 @@
 				
 				
 		</section>
+		</div>
 		<c:import url="/WEB-INF/jsp/include/footer.jsp"/>
 		
 		<!-- Button trigger modal -->
