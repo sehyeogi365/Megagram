@@ -45,14 +45,7 @@ public interface PostDAO {
 //			,@Param("postId") int postId);//비오가 원하는것만큼 수행못할수도 있음 다오하나로 처리 못하는것도 있어서 ㄱ
 
 	
-//	public int insertComment(
-//			@Param("userId") int userId
-//			, @Param("postId") int postId
-//			, @Param("content") String content	
-//			);
-//
-//
-//	public List<Comment> selectCommentList();
+
 
 
 	
