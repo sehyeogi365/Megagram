@@ -25,11 +25,11 @@ public class PostBO {
 	private PostDAO postDAO;
 	
 	//유저객체 필요 역시 이렇게 하는게 맞았음
-	//강사님은 라이크 다오 까지 어토와이어드 함
+	//라이크 다오 까지 어토와이어드 함
 	@Autowired
 	private UserBO userBO;//비오서 비오 불러오기 같은이름의 다오는 불러오는게 자연스럽지만 다른이름의 다오는 불러오기 부자연스러움 그래서 비오를 통해서 불러온거라 함
 	
-	//강사님은 라이크비오추가
+	//라이크비오추가
 	@Autowired
 	private LikeBO likeBO;
 	
