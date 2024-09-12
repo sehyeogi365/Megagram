@@ -10,7 +10,7 @@ public class EncryptService {
 		//모든코드는 인풋과 아웃풋으로 정리 된다 이것만 머리속에 딱 기억하기.
 		String resultString = "";//비어있는문자열 만들어서 이어붙이기
 		
-		//강사님도 이밑에는 다 복붙하심
+		//이밑에는 다 복붙함
 		try {
 			MessageDigest md = MessageDigest.getInstance("md5");// 암호화를 처리해주는 클래스
 			//암호화할방식을 문자로 전달해서 객체를 생성 해주고. 

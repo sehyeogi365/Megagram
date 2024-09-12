@@ -23,7 +23,7 @@ public class PostRestController {
 
 	@Autowired
 	private PostBO postBO;
-	//강사님은 라이크 비오 까지 어토와이어드 함
+	//라이크 비오 까지 어토와이어드 함
 	
 	@Autowired
 	private LikeBO likeBO;
@@ -55,7 +55,7 @@ public class PostRestController {
 		
 	
 	}
-	//좋아요api 강사님은 라이크레스트컨트롤러를 따로 만들어버림
+	//좋아요api 라이크레스트컨트롤러를 따로 만들어버림
 	@GetMapping("/like")
 	public Map<String, String> likeCreate(
 			@RequestParam("postId") int postId
